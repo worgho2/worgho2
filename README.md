@@ -12,7 +12,7 @@
   <img src="https://img.shields.io/badge/WHATSAPP-%2325D366.svg?&style=for-the-badge&logo=whatsapp&logoColor=white" />    
 </a>
 
-&nbsp;&nbsp;
+
 <a href="#">
   <img src="https://badges.pufler.dev/visits/worgho2/worgho2">
 </a>
