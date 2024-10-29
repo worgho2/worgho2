@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/worgho2/worgho2/compare/v1.0.1...v1.0.2) (2024-10-29)
+
+
+### Bug Fixes
+
+* Adjust deployment initial status on release workflow ([07f9810](https://github.com/worgho2/worgho2/commit/07f981002bc733d82628b41a53820ed1c35ad74a))
+
 ## [1.0.1](https://github.com/worgho2/worgho2/compare/v1.0.0...v1.0.1) (2024-10-29)
 
 
