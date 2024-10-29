@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/worgho2/worgho2/compare/v1.0.0...v1.0.1) (2024-10-29)
+
+
+### Bug Fixes
+
+* Update release workflow to add missing environment variables ([d286f57](https://github.com/worgho2/worgho2/commit/d286f57eed8757ffe8dd606dfeff7a164bd1f6f8))
+
 ## 1.0.0 (2024-10-29)
 
 
