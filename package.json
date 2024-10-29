@@ -10,7 +10,8 @@
   },
   "scripts": {
     "dev": "sst dev",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "sst": "3.2.65",

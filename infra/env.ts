@@ -12,8 +12,4 @@ if (!envValidation.success) {
   throw new Error(`Environment validation error: ${JSON.stringify(envValidation.error, null, 2)}`);
 }
 
-export const env = envValidation.data as {
-  CLOUDFLARE_DOMAIN_NAME: string;
-  CLOUDFLARE_API_TOKEN: string;
-  CLOUDFLARE_DEFAULT_ACCOUNT_ID: string;
-};
+export const env = envValidation.data;
