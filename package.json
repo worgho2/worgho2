@@ -1,0 +1,29 @@
+{
+  "name": "worgho2",
+  "version": "0.0.0",
+  "author": "Otávio Baziewicz Filho",
+  "description": "Portfolio",
+  "type": "module",
+  "engines": {
+    "node": "^20.17.0",
+    "pnpm": "^9.10.0"
+  },
+  "scripts": {
+    "dev": "sst dev",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "sst": "3.2.65",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@types/aws-lambda": "8.10.145",
+    "@types/node": "^20",
+    "prettier": "^3.3.3",
+    "typescript": "5.5.4"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

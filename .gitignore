@@ -1,0 +1,27 @@
+
+# sst
+.sst
+
+# node
+node_modules
+
+# env
+.env
+
+# testing
+coverage
+
+# next.js
+.next/
+out/
+build
+.open-next
+
+# misc
+.DS_Store
+*.pem
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
