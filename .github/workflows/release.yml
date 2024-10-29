@@ -64,3 +64,5 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           environment: Production
           environment-url: ${{ steps.deployment.outputs.url }}
+          initial-status: 'success'
+          production-environment: true
