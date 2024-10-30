@@ -12,7 +12,7 @@ body {
   --orange: #fd7702;
   --yellow: #ffbb00;
 
-  --background: var(--yellow);
+  --background: var(--black);
   --accent: var(--black);
 
   margin: 0;

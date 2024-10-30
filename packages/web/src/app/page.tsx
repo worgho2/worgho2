@@ -2,7 +2,7 @@
 
 import './globals.css';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
-import { useRef, useLayoutEffect } from 'react';
+import { useRef, useLayoutEffect, use } from 'react';
 import { useTransform, useScroll, useTime } from 'framer-motion';
 import { degreesToRadians, progress, mix } from 'popmotion';
 import * as THREE from 'three';
@@ -11,7 +11,7 @@ const color = '#ffffff';
 
 const Icosahedron = () => (
   <mesh rotation-x={0.35}>
-    <icosahedronGeometry args={[1, 0]} />
+    <icosahedronGeometry args={[1, 1]} />
     <meshBasicMaterial
       wireframe
       color={color}
@@ -21,12 +21,22 @@ const Icosahedron = () => (
 
 const Star = ({ p }: { p: number }) => {
   const ref = useRef<THREE.Object3D>(null);
+  const { scrollYProgress } = useScroll();
+  const distanceMultiplier = useTransform(scrollYProgress, [0, 1], [2, 1]);
+  const distance = mix(1.5, 3.5, Math.random());
+  const yAngle = mix(degreesToRadians(80), degreesToRadians(100), Math.random());
+  const xAngle = degreesToRadians(360) * p;
 
   useLayoutEffect(() => {
-    const distance = mix(2, 3.5, Math.random());
-    const yAngle = mix(degreesToRadians(80), degreesToRadians(100), Math.random());
-    const xAngle = degreesToRadians(360) * p;
     ref.current!.position.setFromSphericalCoords(distance, yAngle, xAngle);
+  });
+
+  useFrame(() => {
+    ref.current!.position.setFromSphericalCoords(
+      distance * distanceMultiplier.get(),
+      yAngle,
+      xAngle
+    );
   });
 
   return (
@@ -41,7 +51,7 @@ const Star = ({ p }: { p: number }) => {
 };
 
 function Scene({ numStars = 1000 }) {
-  const gl = useThree((state) => state.gl);
+  // const gl = useThree((state) => state.gl);
   const { scrollYProgress } = useScroll();
   const yAngle = useTransform(scrollYProgress, [0, 1], [0.001, degreesToRadians(180)]);
   const distance = useTransform(scrollYProgress, [0, 1], [10, 3]);
@@ -53,7 +63,7 @@ function Scene({ numStars = 1000 }) {
     camera.lookAt(0, 0, 0);
   });
 
-  useLayoutEffect(() => gl.setPixelRatio(0.3));
+  // useLayoutEffect(() => gl.setPixelRatio(1));
 
   const stars = [];
   for (let i = 0; i < numStars; i++) {
