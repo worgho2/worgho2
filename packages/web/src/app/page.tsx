@@ -1,95 +1,79 @@
-import Image from 'next/image';
-import styles from './page.module.css';
+'use client';
+
+import './globals.css';
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
+import { useRef, useLayoutEffect } from 'react';
+import { useTransform, useScroll, useTime } from 'framer-motion';
+import { degreesToRadians, progress, mix } from 'popmotion';
+import * as THREE from 'three';
+
+const color = '#ffffff';
+
+const Icosahedron = () => (
+  <mesh rotation-x={0.35}>
+    <icosahedronGeometry args={[1, 0]} />
+    <meshBasicMaterial
+      wireframe
+      color={color}
+    />
+  </mesh>
+);
+
+const Star = ({ p }: { p: number }) => {
+  const ref = useRef<THREE.Object3D>(null);
+
+  useLayoutEffect(() => {
+    const distance = mix(2, 3.5, Math.random());
+    const yAngle = mix(degreesToRadians(80), degreesToRadians(100), Math.random());
+    const xAngle = degreesToRadians(360) * p;
+    ref.current!.position.setFromSphericalCoords(distance, yAngle, xAngle);
+  });
+
+  return (
+    <mesh ref={ref as any}>
+      <boxGeometry args={[0.05, 0.05, 0.05]} />
+      <meshBasicMaterial
+        wireframe
+        color={color}
+      />
+    </mesh>
+  );
+};
+
+function Scene({ numStars = 1000 }) {
+  const gl = useThree((state) => state.gl);
+  const { scrollYProgress } = useScroll();
+  const yAngle = useTransform(scrollYProgress, [0, 1], [0.001, degreesToRadians(180)]);
+  const distance = useTransform(scrollYProgress, [0, 1], [10, 3]);
+  const time = useTime();
+
+  useFrame(({ camera }) => {
+    camera.position.setFromSphericalCoords(distance.get(), yAngle.get(), time.get() * 0.0005);
+    camera.updateProjectionMatrix();
+    camera.lookAt(0, 0, 0);
+  });
+
+  useLayoutEffect(() => gl.setPixelRatio(0.3));
+
+  const stars = [];
+  for (let i = 0; i < numStars; i++) {
+    stars.push(<Star p={progress(0, numStars, i)} />);
+  }
+
+  return (
+    <>
+      <Icosahedron />
+      {stars}
+    </>
+  );
+}
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src='/next.svg'
-          alt='Next.js logo'
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href='https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <Image
-              className={styles.logo}
-              src='/vercel.svg'
-              alt='Vercel logomark'
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href='https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <Image
-            aria-hidden
-            src='/file.svg'
-            alt='File icon'
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href='https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <Image
-            aria-hidden
-            src='/window.svg'
-            alt='Window icon'
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href='https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <Image
-            aria-hidden
-            src='/globe.svg'
-            alt='Globe icon'
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    <div className='container'>
+      <Canvas gl={{ antialias: false }}>
+        <Scene />
+      </Canvas>
     </div>
   );
 }
