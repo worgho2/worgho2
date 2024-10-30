@@ -2,17 +2,24 @@
   "name": "@worgho2/web",
   "version": "0.0.0",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "react": "19.0.0-rc-69d4b800-20241021",
-    "react-dom": "19.0.0-rc-69d4b800-20241021",
-    "next": "15.0.1"
+    "@react-three/fiber": "8.17.10",
+    "framer-motion": "^11.11.10",
+    "framer-motion-3d": "^11.11.10",
+    "next": "14.2.16",
+    "popmotion": "^11.0.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "three": "^0.169.0"
   },
   "devDependencies": {
+    "@types/node": "^20",
     "@types/react": "^18",
-    "@types/react-dom": "^18"
+    "@types/react-dom": "^18",
+    "@types/three": "^0.169.0"
   }
 }
