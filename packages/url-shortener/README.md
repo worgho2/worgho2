@@ -4,6 +4,7 @@
 - [API Reference](https://docs.micronaut.io/4.7.2/api/index.html)
 - [Configuration Reference](https://docs.micronaut.io/4.7.2/guide/configurationreference.html)
 - [Micronaut Guides](https://guides.micronaut.io/index.html)
+
 ---
 
 ## Deployment with GraalVM
@@ -16,7 +17,6 @@ If you want to deploy to AWS Lambda as a GraalVM native image, run:
 
 This will build the GraalVM native image inside a docker container and generate the `function.zip` ready for the deployment.
 
-
 ## Handler
 
 Handler: com.worgho2.urlshortener.FunctionRequestHandler
@@ -24,27 +24,24 @@ Handler: com.worgho2.urlshortener.FunctionRequestHandler
 [AWS Lambda Handler](https://docs.aws.amazon.com/lambda/latest/dg/java-handler.html)
 
 - [Micronaut Maven Plugin documentation](https://micronaut-projects.github.io/micronaut-maven-plugin/latest/)
+
 ## Feature aws-lambda-custom-runtime documentation
 
 - [Micronaut Custom AWS Lambda runtime documentation](https://micronaut-projects.github.io/micronaut-aws/latest/guide/index.html#lambdaCustomRuntimes)
 
 - [https://docs.aws.amazon.com/lambda/latest/dg/runtimes-custom.html](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-custom.html)
 
-
 ## Feature maven-enforcer-plugin documentation
 
 - [https://maven.apache.org/enforcer/maven-enforcer-plugin/](https://maven.apache.org/enforcer/maven-enforcer-plugin/)
-
 
 ## Feature serialization-jackson documentation
 
 - [Micronaut Serialization Jackson Core documentation](https://micronaut-projects.github.io/micronaut-serialization/latest/guide/)
 
-
 ## Feature aws-lambda documentation
 
 - [Micronaut AWS Lambda Function documentation](https://micronaut-projects.github.io/micronaut-aws/latest/guide/index.html#lambda)
-
 
 ## Feature aws-lambda-events-serde documentation
 
@@ -52,11 +49,8 @@ Handler: com.worgho2.urlshortener.FunctionRequestHandler
 
 - [https://github.com/aws/aws-lambda-java-libs/tree/main/aws-lambda-java-events](https://github.com/aws/aws-lambda-java-libs/tree/main/aws-lambda-java-events)
 
-
 ## Feature http-client-jdk documentation
 
 - [Micronaut HTTP Client Jdk documentation](https://docs.micronaut.io/latest/guide/index.html#jdkHttpClient)
 
 - [https://openjdk.org/groups/net/httpclient/intro.html](https://openjdk.org/groups/net/httpclient/intro.html)
-
-
