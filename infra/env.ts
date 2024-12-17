@@ -2,9 +2,9 @@ import { z } from 'zod';
 
 const envValidation = z
   .object({
-    CLOUDFLARE_DOMAIN_NAME: z.string().min(1),
-    CLOUDFLARE_API_TOKEN: z.string().min(1),
-    CLOUDFLARE_DEFAULT_ACCOUNT_ID: z.string().min(1),
+    CLOUDFLARE_DOMAIN_NAME: z.string().optional(),
+    CLOUDFLARE_API_TOKEN: z.string().optional(),
+    CLOUDFLARE_DEFAULT_ACCOUNT_ID: z.string().optional(),
   })
   .safeParse(process.env);
 

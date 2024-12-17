@@ -1,5 +1,6 @@
-import { Errors } from '@/domain/errors';
+import { ServerErrors } from '@/domain/server-errors';
 import { z } from 'zod';
+import { ClientError } from './client-error';
 
 const publicEnvSchema = z.object({
   NEXT_PUBLIC_APP_URL: z.string(),
@@ -27,8 +28,11 @@ export const getPublicEnv = <T extends keyof PublicEnv>(key: T): PublicEnv[T] =>
   const { success, data, error } = publicEnvSchema.shape[key].safeParse(publicEnv[key]);
 
   if (!success) {
-    const errors = error.errors.map((e) => e.message).join(', ');
-    throw Errors.validation(`Public env "${key}": [${errors}]`);
+    throw ClientError.fromZodError({
+      code: 'PUBLIC_ENV_ERROR',
+      title: `Public environment variable "${key}" is invalid`,
+      error: error,
+    });
   }
 
   return data as PublicEnv[T];
@@ -39,7 +43,7 @@ export const getPrivateEnv = <T extends keyof PrivateEnv>(key: T): PrivateEnv[T]
 
   if (!success) {
     const errors = error.errors.map((e) => e.message).join(', ');
-    throw Errors.validation(`Private env "${key}": [${errors}]`);
+    throw ServerErrors.validation(`Private env "${key}": [${errors}]`);
   }
 
   return data as PrivateEnv[T];
