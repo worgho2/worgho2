@@ -1,17 +1,42 @@
 import type { Metadata } from 'next';
 import React from 'react';
+import { baseMetadata } from './_helpers/seo';
+import { fonts } from './_styles/fonts';
+import { Provider } from './_components/provider';
+import { Navbar } from './_components/navbar';
+import { Footer } from './_components/footer';
 
 export const metadata: Metadata = {
-  title: 'Personal Portfolio',
-  description: "A place where i'm free to overengineer anything that i've found interesting",
+  ...baseMetadata,
 };
 
-const RootLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const htmlClassName = React.useMemo(
+    () => [fonts.poppins.variable].join(' '),
+    [fonts.poppins.variable]
+  );
+
   return (
-    <html lang='en'>
-      <body style={{ height: '500vh' }}>{children}</body>
+    <html
+      lang='en'
+      suppressHydrationWarning
+      className={htmlClassName}
+    >
+      <body>
+        <Provider>
+          <Navbar
+            height='80px'
+            logoImageSrc=''
+          />
+
+          {children}
+
+          <Footer
+            githubUrl='https://github.com/worgho2'
+            linkedinUrl='https://www.linkedin.com/in/otaviobf'
+          />
+        </Provider>
+      </body>
     </html>
   );
-};
-
-export default RootLayout;
+}

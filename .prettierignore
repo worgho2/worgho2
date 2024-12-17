@@ -1,3 +1,11 @@
+_dev
 pnpm-lock.yaml
 sst-env.d.ts
 CHANGELOG.md
+.sst
+.build
+.open-next
+.next
+out
+*.png
+*.jpg

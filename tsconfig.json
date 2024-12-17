@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "strictNullChecks": true,
-    "noImplicitAny": true
-  }
+    "noImplicitAny": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "exclude": ["_dev", "node_modules", "packages/url-shortener"]
 }

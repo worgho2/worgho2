@@ -1,4 +1,3 @@
-
 # sst
 .sst
 
@@ -7,6 +6,8 @@ node_modules
 
 # env
 .env
+.env.*
+!.env.example
 
 # testing
 coverage
@@ -20,8 +21,8 @@ build
 # misc
 .DS_Store
 *.pem
+_dev
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-

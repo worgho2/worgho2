@@ -11,19 +11,19 @@
   },
   "scripts": {
     "dev": "sst dev",
+    "typecheck": "echo TODO",
+    "test": "echo TODO",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
-  "dependencies": {
-    "sst": "3.2.65",
-    "zod": "^3.23.8"
-  },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
-    "@types/aws-lambda": "8.10.145",
+    "@types/aws-lambda": "8.10.146",
     "@types/node": "^20",
-    "prettier": "^3.3.3",
-    "typescript": "5.5.4"
+    "prettier": "3.4.2",
+    "sst": "3.4.14",
+    "typescript": "5.5.4",
+    "zod": "^3.24.1"
   },
   "workspaces": [
     "packages/*"

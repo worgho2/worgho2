@@ -5,7 +5,9 @@ export default $config({
       name: 'worgho2',
       removal: 'remove',
       home: 'aws',
-      providers: { cloudflare: '5.41.0' },
+      providers: {
+        cloudflare: '5.41.0',
+      },
     };
   },
   async run() {
