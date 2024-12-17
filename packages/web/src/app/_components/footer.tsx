@@ -17,11 +17,14 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = (props) => {
   return (
     <footer>
-      <Flex bgColor={'white'}>
+      <Flex
+        bgColor={'white'}
+        py={4}
+      >
         <Container maxW='8xl'>
           <Stack
             direction={{
-              base: 'column',
+              base: 'column-reverse',
               md: 'row',
             }}
             justify={{
@@ -70,8 +73,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
                       <IconButton
                         aria-label={item.label}
                         size='xl'
-                        borderRadius={'md'}
-                        borderWidth={'2px'}
+                        rounded={'full'}
                         variant='outline'
                       >
                         <item.icon />
