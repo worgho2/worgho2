@@ -10,7 +10,7 @@ if (!$dev) {
 
   domain = {
     name: env.CLOUDFLARE_DOMAIN_NAME,
-    dns: sst.cloudflare.dns(),
+    dns: sst.cloudflare.dns({ override: true }),
   };
 
   NEXT_PUBLIC_APP_URL = `https://${env.CLOUDFLARE_DOMAIN_NAME}/`;
