@@ -1,3 +1,5 @@
+'use client';
+
 import { EmptyState as ChakraEmptyState, VStack } from '@chakra-ui/react';
 import * as React from 'react';
 

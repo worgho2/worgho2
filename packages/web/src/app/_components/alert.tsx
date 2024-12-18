@@ -1,3 +1,5 @@
+'use client';
+
 import { Alert as ChakraAlert } from '@chakra-ui/react';
 import { CloseButton } from './close-button';
 import * as React from 'react';

@@ -31,10 +31,15 @@ import { MockShortUrlApi } from '@/infrastructure/short-url-api/mock-short-url-a
 import { ShortUrlData } from '@/ports/short-url-api';
 import { Alert } from '@/app/_components/alert';
 import { LuLink } from 'react-icons/lu';
+import { useInView } from 'motion/react';
 
 export interface CreateShortUrlFormProps extends FlexProps {}
 
 export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexProps }) => {
+  const flexRef = React.useRef<HTMLDivElement>(null);
+  const inView = useInView(flexRef, { once: true });
+  const dataState = inView ? 'open' : 'closed';
+
   const turnstileRef = React.useRef<TurnstileInstance>();
   const formMethods = useForm<CreateShortUrlInput>({
     defaultValues: {
@@ -93,10 +98,21 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
 
   return (
     <Flex
+      ref={flexRef}
       width={'100%'}
       {...flexProps}
     >
-      <Container maxW={'8xl'}>
+      <Container
+        maxW={'8xl'}
+        opacity={0}
+        data-state={dataState}
+        _open={{
+          animationName: 'slide-from-right, fade-in',
+          animationDuration: '0.5s, 0.3s',
+          animationTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1), ease-in-out',
+          animationFillMode: 'forwards',
+        }}
+      >
         <Card.Root maxW={'8xl'}>
           <form onSubmit={formMethods.handleSubmit(onSubmit)}>
             <Card.Header>
@@ -188,6 +204,9 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
               >
                 <Turnstile
                   ref={turnstileRef}
+                  style={{
+                    height: '65px',
+                  }}
                   siteKey={getPublicEnv('NEXT_PUBLIC_TURNSTILE_SITE_KEY')}
                   options={{
                     language: 'auto',

@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  Box,
   Collapsible,
   Container,
   Flex,
