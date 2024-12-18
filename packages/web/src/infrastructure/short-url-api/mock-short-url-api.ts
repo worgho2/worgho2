@@ -7,7 +7,7 @@ import {
 
 export class MockShortUrlApi implements ShortUrlApi {
   create = async (input: ShortUrlApiCreateInput): Promise<ShortUrlApiCreateOutput> => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // return {
     //   error: 'SLUG_IS_ALREADY_TAKEN',
@@ -23,7 +23,9 @@ export class MockShortUrlApi implements ShortUrlApi {
   };
 
   getBySlug = async (slug: string): Promise<ShortUrlData | undefined> => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // return Promise.resolve(undefined);
 
     return Promise.resolve({
       id: '1',

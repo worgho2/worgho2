@@ -108,7 +108,7 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
                 This is a simple project powered by a <b>java micronaut serverless application</b>,
                 that allows the creation of short urls.
                 <br />
-                The urls are stored in a <b>redis database</b> and expire after 10 minutes.
+                The urls are stored in a <b>dynamodb table</b> and expire after 10 minutes.
                 <br />
                 Server side implementation:{' '}
                 <Link
@@ -119,7 +119,6 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
                     href='https://github.com/worgho2/worgho2/tree/main/packages/url-shortener'
                     target='_blank'
                     rel='noopener noreferrer'
-                    // breakline
                   >
                     https://github.com/worgho2/worgho2/tree/main/packages/url-shortener
                   </NextLink>
@@ -175,7 +174,7 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
                       md: 'flex',
                     }}
                   >
-                    {getAppUrl('/projects/url-shortener/').href}
+                    {getAppUrl('/u/').href}
                   </InputAddon>
                   <Input {...formMethods.register('slug')} />
                 </Group>
@@ -245,12 +244,12 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
                   wordBreak={'break-word'}
                 >
                   <NextLink
-                    href={getAppUrl(`/projects/url-shortener/${item.slug}`).href}
+                    href={getAppUrl(`/u/${item.slug}`).href}
                     target='_blank'
                     rel='noopener noreferrer'
                     // breakline
                   >
-                    {getAppUrl(`/projects/url-shortener/${item.slug}`).href}
+                    {getAppUrl(`/u/${item.slug}`).href}
                   </NextLink>
                 </Link>
               }
