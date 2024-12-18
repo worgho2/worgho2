@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/worgho2/worgho2/compare/v1.2.2...v1.3.0) (2024-12-18)
+
+
+### Features
+
+* Update cloudflare provider ([36045dc](https://github.com/worgho2/worgho2/commit/36045dcf7d499fac282443fff62c55851e34497d))
+
 ## [1.2.2](https://github.com/worgho2/worgho2/compare/v1.2.1...v1.2.2) (2024-12-18)
 
 
