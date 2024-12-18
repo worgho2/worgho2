@@ -129,7 +129,7 @@ const DesktopNavbarMenu: React.FC<DesktopNavbarMenuProps> = (props) => {
   return (
     <Tabs.Root
       display={{ base: 'none', lg: 'flex' }}
-      variant={'plain'}
+      variant={'enclosed'}
       value={props.items.find((item) => item.active)?.label}
     >
       <Tabs.List>
@@ -148,7 +148,7 @@ const DesktopNavbarMenu: React.FC<DesktopNavbarMenuProps> = (props) => {
                   >
                     <Text
                       color={'gray.900'}
-                      fontSize={{ base: 'sm', xl: 'lg' }}
+                      fontSize={{ base: 'sm', xl: 'md' }}
                     >
                       {item.label}
                     </Text>
@@ -177,8 +177,6 @@ const DesktopNavbarMenu: React.FC<DesktopNavbarMenuProps> = (props) => {
                     <HStack>
                       <Text
                         color={'gray.900'}
-                        fontWeight={'semibold'}
-                        textTransform={'uppercase'}
                         fontSize={{ base: 'sm', xl: 'lg' }}
                       >
                         {item.label}
@@ -222,13 +220,7 @@ const DesktopNavbarMenu: React.FC<DesktopNavbarMenuProps> = (props) => {
           }
         </For>
 
-        <Tabs.Indicator
-          boxShadow={'none'}
-          borderBottomColor={'border.subtle'}
-          borderBottomRadius={'2px'}
-          borderBottomWidth={'2px'}
-          animation={'fade-in'}
-        />
+        <Tabs.Indicator />
       </Tabs.List>
     </Tabs.Root>
   );
