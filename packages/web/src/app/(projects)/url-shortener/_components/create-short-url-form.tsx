@@ -130,11 +130,11 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
                   wordBreak={'break-word'}
                 >
                   <NextLink
-                    href='https://github.com/worgho2/worgho2/tree/main/packages/web/src/app/projects/url-shortener'
+                    href='https://github.com/worgho2/worgho2/tree/main/packages/web/src/app/(projects)/url-shortener'
                     target='_blank'
                     rel='noopener noreferrer'
                   >
-                    https://github.com/worgho2/worgho2/tree/main/packages/web/src/app/projects/url-shortener
+                    https://github.com/worgho2/worgho2/tree/main/packages/web/src/app/(projects)/url-shortener
                   </NextLink>
                 </Link>
                 <br />
