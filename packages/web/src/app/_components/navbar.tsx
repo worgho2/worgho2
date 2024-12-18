@@ -17,7 +17,6 @@ import {
 } from '@chakra-ui/react';
 import { usePathname } from 'next/navigation';
 import React from 'react';
-import NextImage from 'next/image';
 import NextLink from 'next/link';
 import { LuChevronDown, LuMenu, LuX } from 'react-icons/lu';
 import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from './menu';
@@ -27,6 +26,7 @@ import {
   AccordionItemTrigger,
   AccordionRoot,
 } from './accordion';
+import { Avatar } from './avatar';
 
 interface NavbarMenuItem {
   pathname: string;
@@ -37,7 +37,7 @@ interface NavbarMenuItem {
 
 interface NavbarProps {
   height: FlexProps['height'];
-  logoImageSrc: string;
+  logoSrc: string;
 }
 
 export const Navbar: React.FC<NavbarProps> = (props) => {
@@ -66,59 +66,55 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
         left='0'
         width='100vw'
         zIndex='2'
+        bgColor='white'
+        boxShadow='lg'
       >
-        <Box
-          position='absolute'
-          top='0'
-          width={'100%'}
-          display='flex'
-          bgColor={'white'}
-          boxShadow={'lg'}
+        <Container
+          position='relative'
+          maxWidth='8xl'
+          ref={ref}
         >
-          <Container
-            ref={ref}
-            position={'relative'}
-            maxWidth='8xl'
+          <Flex
+            alignItems='center'
+            justifyContent='space-between'
+            height={props.height}
           >
-            <Flex
-              alignItems='center'
-              width={'100%'}
-              justifyContent='space-between'
-              flex={1}
-              py={4}
-              height={props.height}
+            <Link
+              unstyled
+              asChild
             >
-              <Link
-                unstyled
-                asChild
-              >
-                <NextLink href={'/'}>
-                  <Box asChild>
-                    <NextImage
-                      src={props.logoImageSrc}
-                      alt={props.logoImageSrc}
-                      width={210}
-                      height={70}
-                      style={{
-                        objectFit: 'contain',
-                      }}
-                    />
-                  </Box>
-                </NextLink>
-              </Link>
+              <NextLink href='/'>
+                <HStack gap={4}>
+                  <Avatar
+                    src={props.logoSrc}
+                    size='xs'
+                    name='Otavio Baziewicz'
+                    colorPalette='black'
+                    variant='outline'
+                    css={{
+                      outlineWidth: '2px',
+                      outlineColor: 'colorPalette.500',
+                      outlineOffset: '2px',
+                      outlineStyle: 'solid',
+                    }}
+                  />
 
-              <DesktopNavbarMenu
-                items={items}
-                navbarFlexRef={ref}
-              />
+                  <Text>otavio.baziewi.cz</Text>
+                </HStack>
+              </NextLink>
+            </Link>
 
-              <MobileNavbarMenu
-                items={items}
-                navbarFlexRef={ref}
-              />
-            </Flex>
-          </Container>
-        </Box>
+            <DesktopNavbarMenu
+              items={items}
+              navbarFlexRef={ref}
+            />
+
+            <MobileNavbarMenu
+              items={items}
+              navbarFlexRef={ref}
+            />
+          </Flex>
+        </Container>
       </Flex>
     </nav>
   );
@@ -152,8 +148,6 @@ const DesktopNavbarMenu: React.FC<DesktopNavbarMenuProps> = (props) => {
                   >
                     <Text
                       color={'gray.900'}
-                      fontWeight={'semibold'}
-                      textTransform={'uppercase'}
                       fontSize={{ base: 'sm', xl: 'lg' }}
                     >
                       {item.label}

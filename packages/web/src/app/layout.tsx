@@ -25,8 +25,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Provider>
           <Navbar
-            height='80px'
-            logoImageSrc=''
+            height='60px'
+            logoSrc='/images/favicons/android-chrome-192x192.png'
           />
 
           {children}
