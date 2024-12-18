@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/worgho2/worgho2/compare/v1.2.0...v1.2.1) (2024-12-18)
+
+
+### Bug Fixes
+
+* Remove wrong file import ([1b57af6](https://github.com/worgho2/worgho2/commit/1b57af670bab197621441ece23151329c709eaf3))
+
 ## [1.2.0](https://github.com/worgho2/worgho2/compare/v1.1.0...v1.2.0) (2024-12-18)
 
 
