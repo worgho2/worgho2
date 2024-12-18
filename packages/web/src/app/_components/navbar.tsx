@@ -280,9 +280,7 @@ const MobileNavbarMenu: React.FC<MobileNavbarMenuProps> = (props) => {
                         >
                           <Text
                             color={'gray.900'}
-                            fontWeight={'semibold'}
-                            textTransform={'uppercase'}
-                            fontSize={{ base: 'sm', xl: 'lg' }}
+                            fontSize={{ base: 'md', xl: 'lg' }}
                           >
                             {item.label}
                           </Text>
@@ -298,9 +296,7 @@ const MobileNavbarMenu: React.FC<MobileNavbarMenuProps> = (props) => {
                     >
                       <Text
                         color={'gray.900'}
-                        fontWeight={'semibold'}
-                        textTransform={'uppercase'}
-                        fontSize={{ base: 'sm', xl: 'lg' }}
+                        fontSize={{ base: 'md', xl: 'lg' }}
                       >
                         {item.label}
                       </Text>
@@ -328,9 +324,7 @@ const MobileNavbarMenu: React.FC<MobileNavbarMenuProps> = (props) => {
                             <NextLink href={child.pathname}>
                               <Text
                                 color={'gray.900'}
-                                fontWeight={'semibold'}
-                                textTransform={'uppercase'}
-                                fontSize={'sm'}
+                                fontSize={'md'}
                               >
                                 {child.label}
                               </Text>
