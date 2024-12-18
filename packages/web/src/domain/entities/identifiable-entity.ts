@@ -1,4 +1,3 @@
-import { ObjectId } from 'bson';
 import { ServerErrors } from '../server-errors';
 
 export abstract class IdentifiableEntity<T extends { id: string }> {
@@ -11,10 +10,6 @@ export abstract class IdentifiableEntity<T extends { id: string }> {
   toJSON() {
     return this.getData();
   }
-
-  static getNextId = (): string => {
-    return new ObjectId().toHexString();
-  };
 
   get id(): string {
     return this.data.id;
