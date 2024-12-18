@@ -1,5 +1,15 @@
 import { PageContentContainer } from '@/app/_components/page-content-container';
 import { ProjectCardSection } from './_components/project-card-section';
+import { Metadata } from 'next';
+import { baseMetadata } from '../_helpers/seo';
+
+export const metadata: Metadata = {
+  title: 'Projects',
+  openGraph: {
+    ...baseMetadata.openGraph,
+    title: 'Projects',
+  },
+};
 
 export default function Projects() {
   return (

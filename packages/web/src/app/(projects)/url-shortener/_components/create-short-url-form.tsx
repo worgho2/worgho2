@@ -32,6 +32,7 @@ import { ShortUrlData } from '@/ports/short-url-api';
 import { Alert } from '@/app/_components/alert';
 import { LuLink } from 'react-icons/lu';
 import { useInView } from 'motion/react';
+import { ClipboardIconButton, ClipboardRoot } from '@/app/_components/clipboard';
 
 export interface CreateShortUrlFormProps extends FlexProps {}
 
@@ -257,6 +258,8 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
               key={`${item.slug}-${index}`}
               mt={6}
               status='success'
+              icon={<LuLink />}
+              wordBreak={'break-all'}
               title={
                 <Link
                   asChild
@@ -266,13 +269,16 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
                     href={getAppUrl(`/u/${item.slug}`).href}
                     target='_blank'
                     rel='noopener noreferrer'
-                    // breakline
                   >
                     {getAppUrl(`/u/${item.slug}`).href}
                   </NextLink>
                 </Link>
               }
-              icon={<LuLink />}
+              endElement={
+                <ClipboardRoot value={getAppUrl(`/u/${item.slug}`).href}>
+                  <ClipboardIconButton size={'lg'} />
+                </ClipboardRoot>
+              }
             >
               <b>Original Url:</b> {item.originalUrl}
             </Alert>
