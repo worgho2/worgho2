@@ -5,6 +5,7 @@ import { fonts } from './_styles/fonts';
 import { Provider } from './_components/provider';
 import { Navbar } from './_components/navbar';
 import { Footer } from './_components/footer';
+import { Toaster } from './_components/toaster';
 
 export const metadata: Metadata = {
   ...baseMetadata,
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             githubUrl='https://github.com/worgho2'
             linkedinUrl='https://www.linkedin.com/in/otaviobf'
           />
+          <Toaster />
         </Provider>
       </body>
     </html>

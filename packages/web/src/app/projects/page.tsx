@@ -1,12 +1,12 @@
 import { PageContentContainer } from '@/app/_components/page-content-container';
 
-export default function Home() {
+export default function Projects() {
   return (
     <PageContentContainer
       minH={'100vh'}
       pt={'60px'}
     >
-      WIP
+      Projects
     </PageContentContainer>
   );
 }

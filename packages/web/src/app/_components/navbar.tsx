@@ -52,6 +52,11 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
       active: pathname === '/',
     },
     {
+      pathname: '/projects',
+      label: 'Projects',
+      active: pathname.startsWith('/projects'),
+    },
+    {
       pathname: '/blog',
       label: 'Blog',
       active: pathname.startsWith('/blog'),

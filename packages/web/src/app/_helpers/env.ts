@@ -5,6 +5,7 @@ import { ClientError } from './client-error';
 const publicEnvSchema = z.object({
   NEXT_PUBLIC_APP_URL: z.string(),
   NEXT_PUBLIC_STAGE: z.string(),
+  NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string(),
 });
 
 type PublicEnv = z.infer<typeof publicEnvSchema>;
@@ -23,6 +24,7 @@ export const getPublicEnv = <T extends keyof PublicEnv>(key: T): PublicEnv[T] =>
   const publicEnv: Record<keyof PublicEnv, string | undefined> = {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_STAGE: process.env.NEXT_PUBLIC_STAGE,
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
   };
 
   const { success, data, error } = publicEnvSchema.shape[key].safeParse(publicEnv[key]);

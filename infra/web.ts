@@ -25,5 +25,6 @@ export const nextJsApp = new sst.aws.Nextjs('WebNextjsApp', {
   environment: {
     NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_STAGE: $app.stage,
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: env.CLOUDFLARE_TURNSTILE_SITE_KEY,
   },
 });

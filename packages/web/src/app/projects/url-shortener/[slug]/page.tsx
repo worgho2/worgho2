@@ -1,6 +1,6 @@
 import { PageContentContainer } from '@/app/_components/page-content-container';
 
-export default function Home() {
+export default function Slug() {
   return (
     <PageContentContainer
       minH={'100vh'}
