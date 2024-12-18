@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/worgho2/worgho2/compare/v1.2.1...v1.2.2) (2024-12-18)
+
+
+### Bug Fixes
+
+* Add dns setup override config ([3bdd852](https://github.com/worgho2/worgho2/commit/3bdd852ef1bd7bebb7db3981d01d8e628ba09ebd))
+
 ## [1.2.1](https://github.com/worgho2/worgho2/compare/v1.2.0...v1.2.1) (2024-12-18)
 
 
