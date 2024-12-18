@@ -51,6 +51,8 @@ jobs:
           CLOUDFLARE_DOMAIN_NAME: ${{ vars.CLOUDFLARE_DOMAIN_NAME }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_DEFAULT_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_DEFAULT_ACCOUNT_ID }}
+          CLOUDFLARE_TURNSTILE_SITE_KEY: ${{ secrets.CLOUDFLARE_TURNSTILE_SITE_KEY}}
+          CLOUDFLARE_TURNSTILE_SECRET_KEY: ${{ secrets.CLOUDFLARE_TURNSTILE_SECRET_KEY}}
 
       - name: Create Github Deployment
         if: ${{ steps.release-please.outputs.release_created }}
