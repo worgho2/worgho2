@@ -6,7 +6,7 @@ export default $config({
       removal: 'remove',
       home: 'aws',
       providers: {
-        cloudflare: '5.41.0',
+        cloudflare: '5.45.0',
       },
     };
   },
