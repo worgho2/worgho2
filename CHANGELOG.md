@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.4.0](https://github.com/worgho2/worgho2/compare/v1.3.0...v1.4.0) (2024-12-19)
+
+
+### Features
+
+* Add clipboard to url shortener outputs ([0420729](https://github.com/worgho2/worgho2/commit/0420729c018e252cd2daad6be7531959face9f8a))
+* Add micronaut api gateway dependencies to url-shortener service ([4dabbab](https://github.com/worgho2/worgho2/commit/4dabbab2c19773ae0115a62da4681cfb7e746765))
+* Add url shortener api with connected funcion ([5413a8b](https://github.com/worgho2/worgho2/commit/5413a8b0f478311c5ff656bab601fdb164dfc6ef))
+
+
+### Bug Fixes
+
+* ShortUrl class serialization ([8e6c3e7](https://github.com/worgho2/worgho2/commit/8e6c3e73f7ed750704e5c24dfa71b670a881c4c3))
+
 ## [1.3.0](https://github.com/worgho2/worgho2/compare/v1.2.2...v1.3.0) (2024-12-18)
 
 
