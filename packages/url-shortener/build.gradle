@@ -15,15 +15,24 @@ repositories {
 dependencies {
     annotationProcessor("io.micronaut:micronaut-http-validation")
     annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
+    annotationProcessor("io.micronaut.validation:micronaut-validation-processor")
+
     implementation("io.micronaut:micronaut-http-client-jdk")
+    implementation("io.micronaut.aws:micronaut-aws-apigateway")
     implementation("io.micronaut.aws:micronaut-aws-lambda-events-serde")
+    implementation("io.micronaut.aws:micronaut-aws-sdk-v2")
+    implementation("io.micronaut.aws:micronaut-function-aws-custom-runtime")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
+    implementation("io.micronaut.validation:micronaut-validation")
+    implementation("jakarta.validation:jakarta.validation-api")
+
+
     runtimeOnly("ch.qos.logback:logback-classic")
 }
 
 
 application {
-    mainClass = "com.worgho2.urlshortener.Application"
+    mainClass = "io.micronaut.function.aws.runtime.MicronautLambdaRuntime"
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("21")
@@ -36,6 +45,10 @@ graalvmNative.toolchainDetection = false
 micronaut {
     runtime("lambda_provided")
     testRuntime("junit5")
+    nativeLambda {
+        lambdaRuntimeClassName = "io.micronaut.function.aws.runtime.APIGatewayV2HTTPEventMicronautLambdaRuntime"
+    }
+
     processing {
         incremental(true)
         annotations("com.worgho2.urlshortener.*")
