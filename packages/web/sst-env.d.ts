@@ -6,6 +6,14 @@ import "sst"
 export {}
 declare module "sst" {
   export interface Resource {
+    "UrlShortenerApi": {
+      "type": "sst.aws.ApiGatewayV2"
+      "url": string
+    }
+    "UrlShortenerFunction": {
+      "name": string
+      "type": "sst.aws.Function"
+    }
     "WebNextjsApp": {
       "type": "sst.aws.Nextjs"
       "url": string

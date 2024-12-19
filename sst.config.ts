@@ -1,4 +1,5 @@
 /// <reference path="./.sst/platform/config.d.ts" />
+
 export default $config({
   app(input) {
     return {
@@ -12,6 +13,7 @@ export default $config({
   },
   async run() {
     await import('./infra/env');
+    await import('./infra/url-shortener');
     const web = await import('./infra/web');
 
     return {

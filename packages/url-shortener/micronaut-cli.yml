@@ -1,26 +1,30 @@
-applicationType: function
+applicationType: default
 defaultPackage: com.worgho2.urlshortener
 testFramework: junit
 sourceLanguage: java
-buildTool: maven
+buildTool: gradle
 features:
   [
     app-name,
     aws-lambda,
-    aws-lambda-custom-runtime,
     aws-lambda-events-serde,
-    aws-lambda-handler-function,
+    aws-lambda-handler-default,
     graalvm,
+    gradle,
     http-client-jdk,
     http-client-test,
     java,
+    java-application,
     junit,
     logback,
-    maven,
-    maven-enforcer-plugin,
+    micronaut-aot,
+    micronaut-build,
+    micronaut-http-validation,
     properties,
     readme,
     serialization-jackson,
     shade,
+    spotless,
+    static-resources,
     x86,
   ]
