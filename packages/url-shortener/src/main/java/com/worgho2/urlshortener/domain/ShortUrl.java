@@ -3,17 +3,18 @@ package com.worgho2.urlshortener.domain;
 import java.util.Date;
 import java.util.UUID;
 
+import io.micronaut.core.annotation.Creator;
 import io.micronaut.serde.annotation.Serdeable;
 
 @Serdeable
 public class ShortUrl {
+    private String id;
+    private String originalUrl;
+    private String slug;
+    private Date createdAt;
+    private Date expiresAt;
 
-    public final String id;
-    public final String originalUrl;
-    public final String slug;
-    public final Date createdAt;
-    public final Date expiresAt;
-
+    @Creator
     private ShortUrl(String id, String originalUrl, String slug, Date createdAt, Date expiresAt) {
         this.id = id;
         this.originalUrl = originalUrl;
@@ -32,6 +33,26 @@ public class ShortUrl {
 
     public static ShortUrl restore(String id, String originalUrl, String slug, Date createdAt, Date expiresAt) {
         return new ShortUrl(id, originalUrl, slug, createdAt, expiresAt);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getOriginalUrl() {
+        return originalUrl;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getExpiresAt() {
+        return expiresAt;
     }
 
 }

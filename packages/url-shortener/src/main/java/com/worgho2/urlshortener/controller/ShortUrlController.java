@@ -34,8 +34,8 @@ public class ShortUrlController {
     @Get("/{signedUrlSlug}")
     public HttpResponse<?> getSignetUrlBySlug(@PathVariable("signedUrlSlug") String signedUrlSlug) {
         try {
-            ShortUrl output = this.getShortUrl.execute(signedUrlSlug);
-            return HttpResponse.created(output).contentType(MediaType.APPLICATION_JSON);
+            ShortUrl shortUrl = this.getShortUrl.execute(signedUrlSlug);
+            return HttpResponse.ok(shortUrl).contentType(MediaType.APPLICATION_JSON);
         } catch (ShortUrlNotFoundException e) {
             return HttpResponse.notFound(Collections.singletonMap("slug", signedUrlSlug));
         } catch (Exception e) {
@@ -44,11 +44,8 @@ public class ShortUrlController {
     }
 
     @Serdeable
-    public class CreateSignedUrlBody {
+    public record CreateSignedUrlBody(String slug, String originalUrl, String captchaToken) {
 
-        public String slug;
-        public String originalUrl;
-        public String captchaToken;
     }
 
     @Post()

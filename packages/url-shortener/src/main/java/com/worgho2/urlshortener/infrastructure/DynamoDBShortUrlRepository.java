@@ -6,6 +6,9 @@ import java.util.Optional;
 import com.worgho2.urlshortener.application.ShortUrlRepository;
 import com.worgho2.urlshortener.domain.ShortUrl;
 
+import jakarta.inject.Singleton;
+
+@Singleton
 public class DynamoDBShortUrlRepository implements ShortUrlRepository {
 
     @Override
