@@ -16,10 +16,12 @@ class HomeControllerTest {
     private static APIGatewayV2HTTPEventFunction handler;
 
     @BeforeAll
+    @SuppressWarnings("unused")
     static void setupSpec() {
         handler = new APIGatewayV2HTTPEventFunction();
     }
     @AfterAll
+    @SuppressWarnings("unused")
     static void cleanupSpec() {
         handler.getApplicationContext().close();
     }
