@@ -9,6 +9,7 @@ import com.worgho2.urlshortener.domain.ShortUrlNotFoundException;
 import com.worgho2.urlshortener.domain.SlugAlreadyTakenException;
 import com.worgho2.urlshortener.domain.UnauthorizedException;
 
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
@@ -18,9 +19,14 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
-import io.micronaut.serde.annotation.Serdeable;
+import io.micronaut.validation.Validated;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Controller("/api/short-urls")
+@Validated
 public class ShortUrlController {
 
     private final CreateShortUrl createShortUrl;
@@ -32,7 +38,7 @@ public class ShortUrlController {
     }
 
     @Get("/{signedUrlSlug}")
-    public HttpResponse<?> getSignetUrlBySlug(@PathVariable("signedUrlSlug") String signedUrlSlug) {
+    public HttpResponse<?> getSignetUrlBySlug(@PathVariable("signedUrlSlug") @NonNull @NotBlank String signedUrlSlug) {
         try {
             ShortUrl shortUrl = this.getShortUrl.execute(signedUrlSlug);
             return HttpResponse.ok(shortUrl).contentType(MediaType.APPLICATION_JSON);
@@ -43,16 +49,24 @@ public class ShortUrlController {
         }
     }
 
-    @Serdeable
-    public record CreateSignedUrlBody(String slug, String originalUrl, String captchaToken) {
-
-    }
-
     @Post()
-    public HttpResponse<?> createSignedUrl(@Body CreateSignedUrlBody body, @Nullable @Header("x-forwarded-for") String remoteIp) {
+    public HttpResponse<?> createSignedUrl(
+            @NotBlank(message = "Slug is required")
+            @Pattern(regexp = "^[a-zA-Z0-9-_]+$", message = "Slug must contain only letters, numbers, hyphens and underscores")
+            @Size(min = 1, max = 32, message = "Slug must be between 1 and 32 characters")
+            @Body("slug") String slug,
+            @NotBlank(message = "Original url is required")
+            @Pattern(regexp = "^https?://.*$")
+            @Body("originalUrl") String originalUrl,
+            @NotNull
+            @NotBlank(message = "Captcha token is required")
+            @Body("captchaToken") String captchaToken,
+            @Nullable
+            @Header("x-forwarded-for") String forwaredFor
+    ) {
         try {
-            String safeRemoteIp = remoteIp != null ? remoteIp : "127.0.0.1";
-            ShortUrl output = this.createShortUrl.execute(body.originalUrl, body.slug, body.captchaToken, safeRemoteIp);
+            String remoteIp = forwaredFor != null ? forwaredFor : "127.0.0.1";
+            ShortUrl output = this.createShortUrl.execute(originalUrl, slug, captchaToken, remoteIp);
             return HttpResponse.created(output).contentType(MediaType.APPLICATION_JSON);
         } catch (SlugAlreadyTakenException e) {
             return HttpResponse.badRequest(Collections.singletonMap("error", e.getMessage()));

@@ -12,7 +12,8 @@ import io.micronaut.function.aws.proxy.payload2.APIGatewayV2HTTPEventFunction;
 import io.micronaut.http.HttpMethod;
 import io.micronaut.http.HttpStatus;
 
-class HomeControllerTest {
+class ShortUrlControllerTest {
+
     private static APIGatewayV2HTTPEventFunction handler;
 
     @BeforeAll
@@ -20,6 +21,7 @@ class HomeControllerTest {
     static void setupSpec() {
         handler = new APIGatewayV2HTTPEventFunction();
     }
+
     @AfterAll
     @SuppressWarnings("unused")
     static void cleanupSpec() {
@@ -27,7 +29,7 @@ class HomeControllerTest {
     }
 
     @Test
-    void testHandler() {
+    void smokeTest() {
         APIGatewayV2HTTPEvent request = new APIGatewayV2HTTPEvent();
         request.setRequestContext(APIGatewayV2HTTPEvent.RequestContext.builder()
                 .withHttp(APIGatewayV2HTTPEvent.RequestContext.Http.builder()
@@ -37,7 +39,6 @@ class HomeControllerTest {
                 ).build());
         var response = handler.handleRequest(request, new MockLambdaContext());
 
-        assertEquals(HttpStatus.OK.getCode(), response.getStatusCode());
-        assertEquals("{\"message\":\"Hello World\"}",  response.getBody());
+        assertEquals(HttpStatus.NOT_FOUND.getCode(), response.getStatusCode());
     }
 }

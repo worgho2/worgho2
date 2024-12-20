@@ -10,6 +10,10 @@ declare module "sst" {
       "type": "sst.aws.ApiGatewayV2"
       "url": string
     }
+    "UrlShortenerDynamoDb": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
     "UrlShortenerFunction": {
       "name": string
       "type": "sst.aws.Function"

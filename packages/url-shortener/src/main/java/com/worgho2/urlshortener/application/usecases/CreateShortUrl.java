@@ -35,7 +35,7 @@ public class CreateShortUrl {
             throw new SlugAlreadyTakenException(slug);
         }
 
-        ShortUrl shortUrl = ShortUrl.create(originalUrl, slug);
+        ShortUrl shortUrl = ShortUrl.create(slug, originalUrl);
         shortUrlRepository.save(shortUrl);
         return shortUrl;
     }
