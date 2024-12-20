@@ -2,6 +2,9 @@ package com.worgho2.urlshortener.controller;
 
 import java.util.Collections;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.worgho2.urlshortener.application.usecases.CreateShortUrl;
 import com.worgho2.urlshortener.application.usecases.GetShortUrl;
 import com.worgho2.urlshortener.domain.ShortUrl;
@@ -28,6 +31,7 @@ import jakarta.validation.constraints.Size;
 @Controller("/api/short-urls")
 @Validated
 public class ShortUrlController {
+    private static final Logger logger = LoggerFactory.getLogger(ShortUrlController.class);
 
     private final CreateShortUrl createShortUrl;
     private final GetShortUrl getShortUrl;
@@ -45,6 +49,7 @@ public class ShortUrlController {
         } catch (ShortUrlNotFoundException e) {
             return HttpResponse.notFound(Collections.singletonMap("slug", signedUrlSlug));
         } catch (Exception e) {
+            logger.error("Error getting short url", e);
             return HttpResponse.serverError(Collections.singletonMap("error", e.getMessage()));
         }
     }
@@ -73,6 +78,7 @@ public class ShortUrlController {
         } catch (UnauthorizedException e) {
             return HttpResponse.unauthorized();
         } catch (Exception e) {
+            logger.error("Error creating short url", e);
             return HttpResponse.serverError(Collections.singletonMap("error", e.getMessage()));
         }
     }

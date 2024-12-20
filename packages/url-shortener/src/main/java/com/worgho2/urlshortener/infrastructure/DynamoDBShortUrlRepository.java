@@ -38,11 +38,14 @@ public class DynamoDBShortUrlRepository implements ShortUrlRepository {
     }
 
     private ShortUrl mapToEntity(Map<String, AttributeValue> item) {
+        String expiresAtUnixString = item.get("expiresAt").n();
+        Date expiresAt = new Date(Long.parseLong(expiresAtUnixString) * 1000);
+
         return ShortUrl.restore(
                 item.get("slug").s(),
                 item.get("originalUrl").s(),
                 new Date(item.get("createdAt").s()),
-                new Date(item.get("expiresAt").n())
+                expiresAt
         );
     }
 
