@@ -1,4 +1,5 @@
 import { execSync } from 'node:child_process';
+import { env } from './env';
 
 const api = new sst.aws.ApiGatewayV2('UrlShortenerApi', {
   cors: true,
@@ -37,15 +38,22 @@ const build = (target: string): string => {
   return `${target}/build/lambda`;
 };
 
+/**
+ * @todo Improve the way this service is initialized in dev environment.
+ * Currently it triggers a full build of the application, which can take more than 1 minute due the
+ * GraalVM native image compilation. Needs further investigation, maybe using something like
+ * awslambdaric
+ */
 const applicationFunction = new sst.aws.Function('UrlShortenerFunction', {
   runtime: 'provided.al2023',
   architecture: 'x86_64',
   dev: false,
   bundle: build('packages/url-shortener'),
-  handler: 'io.micronaut.function.aws.proxy.payload2.ApiGatewayProxyRequestEventFunction',
+  handler: 'bootstrap',
   link: [dynamoDbShortUrlTable],
   environment: {
     DYNAMODB_SHORT_URL_TABLE_NAME: dynamoDbShortUrlTable.name,
+    CLOUDFLARE_TURNSTILE_SECRET_KEY: env.CLOUDFLARE_TURNSTILE_SECRET_KEY,
   },
 });
 

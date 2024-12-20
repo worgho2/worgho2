@@ -27,7 +27,6 @@ dependencies {
     implementation("jakarta.validation:jakarta.validation-api")
     implementation("software.amazon.awssdk:dynamodb")
 
-
     runtimeOnly("ch.qos.logback:logback-classic")
 }
 

@@ -23,7 +23,7 @@ public class CreateShortUrl {
     }
 
     public ShortUrl execute(String originalUrl, String slug, String captchaToken, String remoteIp) throws SlugAlreadyTakenException, UnauthorizedException {
-        Boolean isCaptchaValid = captchaValidator.validate(captchaToken, remoteIp);
+        boolean isCaptchaValid = captchaValidator.validate(captchaToken, remoteIp);
 
         if (!isCaptchaValid) {
             throw new UnauthorizedException("Invalid captcha");
