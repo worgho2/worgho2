@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.4.0](https://github.com/worgho2/worgho2/compare/v1.3.0...v1.4.0) (2024-12-20)
+
+
+### Features
+
+* Add clipboard to url shortener outputs ([0420729](https://github.com/worgho2/worgho2/commit/0420729c018e252cd2daad6be7531959face9f8a))
+* Add cloudflare turnstile integration to url-shortener service ([f09a96c](https://github.com/worgho2/worgho2/commit/f09a96ceb3ecd10026cb28773d2a842e8b28a591))
+* Add hard limits to dynamodb table to avoid cost issues ([fabeb9e](https://github.com/worgho2/worgho2/commit/fabeb9e610c2cefc16978a99f781d94fd0cf4b14))
+* Add micronaut api gateway dependencies to url-shortener service ([4dabbab](https://github.com/worgho2/worgho2/commit/4dabbab2c19773ae0115a62da4681cfb7e746765))
+* Add url shortener api with connected funcion ([5413a8b](https://github.com/worgho2/worgho2/commit/5413a8b0f478311c5ff656bab601fdb164dfc6ef))
+* Add working version of url-shortener ([8ae7174](https://github.com/worgho2/worgho2/commit/8ae7174e29a8eb274889201b452fbe8e5d169bc0))
+* Integrate dynamodb to url-shortener ([421c8aa](https://github.com/worgho2/worgho2/commit/421c8aa2e3fa2db3b9950389e91031dafe34a272))
+
+
+### Bug Fixes
+
+* Ajust existing mock short url api implementation ([affd9bf](https://github.com/worgho2/worgho2/commit/affd9bf8e2eaee482314e3a6cddbebd45de1dcb1))
+* Date construction ([9f857fe](https://github.com/worgho2/worgho2/commit/9f857fe85c5dec6c835ced17afc9b72bf08ab181))
+* ShortUrl class serialization ([8e6c3e7](https://github.com/worgho2/worgho2/commit/8e6c3e73f7ed750704e5c24dfa71b670a881c4c3))
+
 ## [1.3.0](https://github.com/worgho2/worgho2/compare/v1.2.2...v1.3.0) (2024-12-18)
 
 
