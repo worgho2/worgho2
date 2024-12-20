@@ -13,6 +13,18 @@ const dynamoDbShortUrlTable = new sst.aws.Dynamo('UrlShortenerDynamoDb', {
   },
   ttl: 'expiresAt',
   deletionProtection: false,
+  transform: {
+    table(args) {
+      args.pointInTimeRecovery = {
+        enabled: false,
+      };
+
+      args.onDemandThroughput = {
+        maxReadRequestUnits: 1000,
+        maxWriteRequestUnits: 20,
+      };
+    },
+  },
 });
 
 const build = (target: string): string => {
