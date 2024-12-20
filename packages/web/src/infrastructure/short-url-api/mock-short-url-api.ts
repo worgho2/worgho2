@@ -14,10 +14,10 @@ export class MockShortUrlApi implements ShortUrlApi {
     // };
 
     return Promise.resolve({
-      id: '1',
-      createdAt: new Date(),
-      originalUrl: input.originalUrl,
       slug: input.slug,
+      originalUrl: input.originalUrl,
+      createdAt: new Date(),
+      expiresAt: new Date(),
       error: undefined,
     });
   };
@@ -28,10 +28,10 @@ export class MockShortUrlApi implements ShortUrlApi {
     // return Promise.resolve(undefined);
 
     return Promise.resolve({
-      id: '1',
-      createdAt: new Date(),
-      originalUrl: 'https://github.com/worgho2',
       slug,
+      originalUrl: 'https://github.com/worgho2',
+      createdAt: new Date(),
+      expiresAt: new Date(),
       error: undefined,
     });
   };
