@@ -6,6 +6,7 @@ const publicEnvSchema = z.object({
   NEXT_PUBLIC_APP_URL: z.string(),
   NEXT_PUBLIC_STAGE: z.string(),
   NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string(),
+  NEXT_PUBLIC_URL_SHORTENER_API_URL: z.string(),
 });
 
 type PublicEnv = z.infer<typeof publicEnvSchema>;
@@ -25,6 +26,7 @@ export const getPublicEnv = <T extends keyof PublicEnv>(key: T): PublicEnv[T] =>
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_STAGE: process.env.NEXT_PUBLIC_STAGE,
     NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+    NEXT_PUBLIC_URL_SHORTENER_API_URL: process.env.NEXT_PUBLIC_URL_SHORTENER_API_URL,
   };
 
   const { success, data, error } = publicEnvSchema.shape[key].safeParse(publicEnv[key]);

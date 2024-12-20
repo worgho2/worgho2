@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
 export const shortUrlDataSchema = z.object({
-  id: z.string(),
   slug: z.string(),
   originalUrl: z.string().url(),
   createdAt: z.date(),
+  expiresAt: z.date(),
 });
 
 export type ShortUrlData = z.infer<typeof shortUrlDataSchema>;
@@ -19,7 +19,7 @@ export type ShortUrlApiCreateInput = z.infer<typeof shortUrlApiCreateInputSchema
 
 export type ShortUrlApiCreateOutput =
   | (ShortUrlData & { error: undefined })
-  | { error: 'SLUG_IS_ALREADY_TAKEN' | 'SERVICE_UNAVAILABLE' };
+  | { error: 'SLUG_IS_ALREADY_TAKEN' | 'CAPTCHA_IS_INVALID' | 'INTERNAL_ERROR' };
 
 export interface ShortUrlApi {
   create(input: ShortUrlApiCreateInput): Promise<ShortUrlApiCreateOutput>;

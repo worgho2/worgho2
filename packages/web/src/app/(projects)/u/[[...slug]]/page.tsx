@@ -3,7 +3,6 @@ import { EmptyState } from '@/app/_components/empty-state';
 import { PageContentContainer } from '@/app/_components/page-content-container';
 import { baseMetadata } from '@/app/_helpers/seo';
 import { ConsoleLogger } from '@/infrastructure/logger/console-logger';
-import { MockShortUrlApi } from '@/infrastructure/short-url-api/mock-short-url-api';
 import { GetShortUrl } from '@/ports/use-cases/get-short-url';
 import { Center, Container, Group, Link, Text } from '@chakra-ui/react';
 import { Metadata } from 'next';
@@ -11,6 +10,8 @@ import { redirect, RedirectType } from 'next/navigation';
 import { LuBinoculars, LuLink } from 'react-icons/lu';
 import NextLink from 'next/link';
 import { ToggleTip } from '@/app/_components/toggle-tip';
+import { getPublicEnv } from '@/app/_helpers/env';
+import { MicronautShortUrlApi } from '@/infrastructure/short-url-api/micronaut-short-url-api';
 
 interface ShortUrlPageProps {
   params: {
@@ -22,7 +23,10 @@ export const revalidate = 10;
 export const dynamicParams = true;
 
 const logger = new ConsoleLogger();
-const shortUrlApi = new MockShortUrlApi();
+const shortUrlApi = new MicronautShortUrlApi(
+  logger,
+  getPublicEnv('NEXT_PUBLIC_URL_SHORTENER_API_URL')
+);
 const getShortUrl = new GetShortUrl(logger, shortUrlApi);
 
 export const metadata: Metadata = {

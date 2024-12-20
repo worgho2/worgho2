@@ -27,12 +27,12 @@ import NextLink from 'next/link';
 import { toaster } from '@/app/_components/toaster';
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
 import { getPublicEnv } from '@/app/_helpers/env';
-import { MockShortUrlApi } from '@/infrastructure/short-url-api/mock-short-url-api';
 import { ShortUrlData } from '@/ports/short-url-api';
 import { Alert } from '@/app/_components/alert';
 import { LuLink } from 'react-icons/lu';
 import { useInView } from 'motion/react';
 import { ClipboardIconButton, ClipboardRoot } from '@/app/_components/clipboard';
+import { MicronautShortUrlApi } from '@/infrastructure/short-url-api/micronaut-short-url-api';
 
 export interface CreateShortUrlFormProps extends FlexProps {}
 
@@ -52,7 +52,10 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
   const [createdUrls, setCreatedUrls] = React.useState<ShortUrlData[]>([]);
 
   const logger = new ConsoleLogger();
-  const shortUrlApi = new MockShortUrlApi();
+  const shortUrlApi = new MicronautShortUrlApi(
+    logger,
+    getPublicEnv('NEXT_PUBLIC_URL_SHORTENER_API_URL')
+  );
   const createShortUrl = new CreateShortUrl(logger, shortUrlApi);
 
   const onSubmit: SubmitHandler<CreateShortUrlInput> = async (data, event) => {
@@ -74,10 +77,18 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
       return;
     }
 
+    if (output.error === 'CAPTCHA_IS_INVALID') {
+      formMethods.setError('captcha', {
+        message: 'Captcha is invalid, please try again',
+      });
+
+      return;
+    }
+
     if (output.error !== undefined) {
       toaster.create({
-        title: 'Error',
-        description: `An error occurred while creating the short url: "${output.error}"`,
+        title: output.error,
+        description: `Not expected error, please tell me what happened!`,
         duration: 5000,
         type: 'error',
       });
