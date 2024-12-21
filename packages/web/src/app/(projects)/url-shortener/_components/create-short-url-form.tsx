@@ -18,6 +18,7 @@ import {
   Input,
   InputAddon,
   Link,
+  List,
 } from '@chakra-ui/react';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -131,40 +132,78 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
               <Card.Title>Url Shortener</Card.Title>
 
               <Card.Description lineHeight={'taller'}>
-                Welcome to the url shortener!
+                This is a project powered by a <b>java micronaut serverless application</b> with{' '}
+                <b>GraalVM native image compilation</b>, that allows the creation of temporary short
+                urls.
                 <br />
-                This is a simple project powered by a <b>java micronaut serverless application</b>,
-                that allows the creation of short urls.
+                The urls are stored in a <b>DynamoDB</b> table with a <b>TTL of 10 minutes</b>. It
+                means the urls are valid for at most{' '}
+                <b>10 minutes + The time DynamoDB takes to clean up expired records</b> (Which can
+                take a couple minutes)
                 <br />
-                The urls are stored in a <b>dynamodb table</b> and expire after 10 minutes.
                 <br />
-                Server side implementation:{' '}
-                <Link
-                  asChild
-                  wordBreak={'break-word'}
-                >
-                  <NextLink
-                    href='https://github.com/worgho2/worgho2/tree/main/packages/url-shortener'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    https://github.com/worgho2/worgho2/tree/main/packages/url-shortener
-                  </NextLink>
-                </Link>
-                <br />
-                Client side implementation:{' '}
-                <Link
-                  asChild
-                  wordBreak={'break-word'}
-                >
-                  <NextLink
-                    href='https://github.com/worgho2/worgho2/tree/main/packages/web/src/app/(projects)/url-shortener'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    https://github.com/worgho2/worgho2/tree/main/packages/web/src/app/(projects)/url-shortener
-                  </NextLink>
-                </Link>
+                Implementation Reference:
+                <List.Root>
+                  <List.Item>
+                    <Link
+                      asChild
+                      wordBreak={'break-word'}
+                    >
+                      <NextLink
+                        href='https://github.com/worgho2/worgho2/tree/main/packages/url-shortener'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        Service
+                      </NextLink>
+                    </Link>
+                  </List.Item>
+
+                  <List.Item>
+                    <Link
+                      asChild
+                      wordBreak={'break-word'}
+                    >
+                      <NextLink
+                        href='https://github.com/worgho2/worgho2/blob/main/infra/url-shortener.ts'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        Service AWS IaC
+                      </NextLink>
+                    </Link>
+                  </List.Item>
+
+                  <List.Item>
+                    <Link
+                      asChild
+                      wordBreak={'break-word'}
+                    >
+                      <NextLink
+                        href='https://github.com/worgho2/worgho2/tree/main/packages/web/src/app/(projects)/url-shortener'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        Client Short Url Creation Page
+                      </NextLink>
+                    </Link>
+                  </List.Item>
+
+                  <List.Item>
+                    <Link
+                      asChild
+                      wordBreak={'break-word'}
+                    >
+                      <NextLink
+                        href='https://github.com/worgho2/worgho2/blob/main/packages/web/src/app/(projects)/u/%5B%5B...slug%5D%5D/page.tsx'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        Client Short Url Page
+                      </NextLink>
+                    </Link>
+                  </List.Item>
+                </List.Root>
                 <br />
                 Please, give a try!
               </Card.Description>
