@@ -31,6 +31,7 @@ import jakarta.validation.constraints.Size;
 @Controller("/api/short-urls")
 @Validated
 public class ShortUrlController {
+
     private static final Logger logger = LoggerFactory.getLogger(ShortUrlController.class);
 
     private final CreateShortUrl createShortUrl;
@@ -45,7 +46,18 @@ public class ShortUrlController {
     public HttpResponse<?> getSignetUrlBySlug(@PathVariable("signedUrlSlug") @NonNull @NotBlank String signedUrlSlug) {
         try {
             ShortUrl shortUrl = this.getShortUrl.execute(signedUrlSlug);
-            return HttpResponse.ok(shortUrl).contentType(MediaType.APPLICATION_JSON);
+
+            long maxAge = (shortUrl.getExpiresAt().getTime() - System.currentTimeMillis()) / 1000;
+
+            if (maxAge <= 0) {
+                return HttpResponse.ok(shortUrl).contentType(MediaType.APPLICATION_JSON)
+                        .header("Cache-Control", "no-store, no-cache, must-revalidate")
+                        .header("Pragma", "no-cache");
+            }
+
+            return HttpResponse.ok(shortUrl)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Cache-Control", String.format("public, max-age=%d", maxAge));
         } catch (ShortUrlNotFoundException e) {
             return HttpResponse.notFound(Collections.singletonMap("slug", signedUrlSlug));
         } catch (Exception e) {
