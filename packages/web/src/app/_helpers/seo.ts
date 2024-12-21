@@ -27,6 +27,6 @@ export const baseMetadata: Metadata = {
       default: 'Otávio Baziewicz Filho',
     },
     type: 'website',
-    images: [getAppUrl('images/favicons/android-chrome-512x512.png')],
+    images: [getAppUrl('images/seo/open-graph.jpg')],
   },
 };
