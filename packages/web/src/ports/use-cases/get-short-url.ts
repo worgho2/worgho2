@@ -20,7 +20,6 @@ export class GetShortUrl {
     this.logger.debug('GetShortUrl.execute', { input });
 
     const shortUrlData = await this.shortUrlApi.getBySlug(input.slug);
-
     return shortUrlData;
   };
 }

@@ -131,7 +131,10 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
             <Card.Header>
               <Card.Title>Url Shortener</Card.Title>
 
-              <Card.Description lineHeight={'taller'}>
+              <Card.Description
+                lineHeight={'taller'}
+                as={'div'}
+              >
                 This is a project powered by a <b>java micronaut serverless application</b> with{' '}
                 <b>GraalVM native image compilation</b>, that allows the creation of temporary short
                 urls.

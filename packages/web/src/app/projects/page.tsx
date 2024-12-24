@@ -15,11 +15,30 @@ export default function Projects() {
   return (
     <PageContentContainer pt={'60px'}>
       <ProjectCardSection
+        name='Sudoku Solver'
+        description={
+          <>
+            A sudoku solver that supports multiple board patterns.
+            <br />
+            <br />
+            The <b>Solver</b> is based on a <b>Rust lib compiled to WebAssembly</b> that implements
+            a <b>(Dsatur Graph Coloring + Backtracking)</b> algorithm.
+          </>
+        }
+        link={{
+          href: '/sudoku-solver',
+        }}
+        backgroundColor={'white'}
+        paddingTop={{ base: 6, md: 16 }}
+      />
+
+      <ProjectCardSection
         name='Url Shortener'
         description={
           <>
             A serverless service that allows the creation of temporary short urls defining a custom
             slug.
+            <br />
             <br />
             The service is based on a <b>Java Micronault</b> implementation, using{' '}
             <b>AWS DynamoDB</b> as the database and <b>AWS Lambda</b> as the serverless function.
@@ -30,6 +49,7 @@ export default function Projects() {
         }}
         backgroundColor={'white'}
         paddingTop={{ base: 6, md: 16 }}
+        animationDelay={'0.1s'}
       />
 
       <ProjectCardSection
@@ -37,6 +57,7 @@ export default function Projects() {
         description={
           <>
             A dynamic and free-form blog that allows the management of content in <b>Notion</b>.
+            <br />
             <br />
             The service is based on a <b>Next.js</b> implementation, using the <b>react-notion-x</b>{' '}
             library to fetch and render the content from Notion.
@@ -47,7 +68,7 @@ export default function Projects() {
         }}
         backgroundColor={'white'}
         paddingY={{ base: 6, md: 16 }}
-        animationDelay={'0.1s'}
+        animationDelay={'0.2s'}
       />
     </PageContentContainer>
   );
