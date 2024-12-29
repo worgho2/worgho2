@@ -1,0 +1,20 @@
+{
+  "name": "@worgho2/sudoku-solver",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "files": [
+    "dist/lib_bg.wasm",
+    "dist/lib.js",
+    "dist/lib.d.ts"
+  ],
+  "main": "dist/lib.js",
+  "types": "dist/lib.d.ts",
+  "scripts": {
+    "prepare": "pnpm build",
+    "build": "wasm-pack build --release --out-name lib --out-dir dist -t web"
+  },
+  "devDependencies": {
+    "wasm-pack": "^0.13.1"
+  }
+}

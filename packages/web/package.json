@@ -16,6 +16,7 @@
     "@hookform/resolvers": "^3.9.1",
     "@marsidev/react-turnstile": "^1.1.0",
     "@react-three/fiber": "8.2.2",
+    "@worgho2/sudoku-solver": "link:../sudoku-solver",
     "core-js": "^3.39.0",
     "dayjs": "^1.11.13",
     "discord.js": "^14.16.3",
