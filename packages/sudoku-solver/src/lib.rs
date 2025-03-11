@@ -1,11 +1,28 @@
+use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
-extern "C" {
-    pub fn alert(s: &str);
+mod board_type;
+mod game;
+mod graph;
+mod node;
+
+#[derive(Serialize, Deserialize)]
+pub struct SolveInput {
+    board: Vec<Vec<i32>>,
+    board_type: String,
 }
 
 #[wasm_bindgen]
-pub fn greet(name: &str) {
-    alert(&format!("Hello, {}!", name));
+pub fn solve(js_input: JsValue) -> Result<JsValue, JsError> {
+    let input: SolveInput = serde_wasm_bindgen::from_value(js_input)?;
+    let board_type = board_type::BoardType::from_string(&input.board_type)
+        .or(Err(JsError::new("Invalid board type")))?;
+    let game = game::Game::new(input.board, board_type);
+    let success = game.solve();
+
+    if !success {
+        return Err(JsError::new("Failed to solve board"));
+    }
+
+    Ok(serde_wasm_bindgen::to_value(&game.get_board())?)
 }
