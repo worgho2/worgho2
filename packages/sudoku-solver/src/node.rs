@@ -4,17 +4,17 @@ use std::rc::Rc;
 
 pub struct Node {
     index: String,
-    i: i32,
-    j: i32,
-    order: i32,
-    color: i32,
-    saturation: i32,
+    i: i8,
+    j: i8,
+    order: i8,
+    color: i8,
+    saturation: i8,
     neighbors: HashMap<String, Rc<RefCell<Node>>>,
-    board: Rc<RefCell<Vec<Vec<i32>>>>,
+    board: Rc<RefCell<Vec<Vec<i8>>>>,
 }
 
 impl Node {
-    pub fn new(i: i32, j: i32, order: i32, board: Rc<RefCell<Vec<Vec<i32>>>>) -> Node {
+    pub fn new(i: i8, j: i8, order: i8, board: Rc<RefCell<Vec<Vec<i8>>>>) -> Node {
         Node {
             index: format!("{}_{}", i, j),
             i,
@@ -31,15 +31,15 @@ impl Node {
         self.index.clone()
     }
 
-    pub fn get_color(&self) -> i32 {
+    pub fn get_color(&self) -> i8 {
         self.color.clone()
     }
 
-    pub fn get_saturation(&self) -> i32 {
+    pub fn get_saturation(&self) -> i8 {
         self.saturation
     }
 
-    pub fn set_color(&mut self, new_color: i32) {
+    pub fn set_color(&mut self, new_color: i8) {
         if new_color == -1 {
             return;
         }
@@ -59,7 +59,7 @@ impl Node {
         self.color != -1
     }
 
-    pub fn get_available_colors(&self) -> Vec<i32> {
+    pub fn get_available_colors(&self) -> Vec<i8> {
         let mut available_colors_hash_set = HashMap::new();
 
         for i in 1..=self.order {
@@ -110,7 +110,7 @@ mod tests {
     #[wasm_bindgen_test::wasm_bindgen_test]
     fn test_node_creation() {
         let board = Rc::new(RefCell::new(vec![vec![-1, 1], vec![-1, -1]]));
-        let order: i32 = 2;
+        let order: i8 = 2;
         let node1 = Node::new(0, 0, order, board.clone());
 
         assert_eq!(node1.get_index(), "0_0");
@@ -156,7 +156,7 @@ mod tests {
     #[wasm_bindgen_test::wasm_bindgen_test]
     fn test_node_coloring() {
         let board = Rc::new(RefCell::new(vec![vec![-1, -1], vec![-1, -1]]));
-        let order: i32 = 2;
+        let order: i8 = 2;
         let node1 = Rc::new(RefCell::new(Node::new(0, 0, order, board.clone())));
         let node2 = Rc::new(RefCell::new(Node::new(0, 1, order, board.clone())));
 

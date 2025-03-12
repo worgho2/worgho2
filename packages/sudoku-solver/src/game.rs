@@ -2,12 +2,12 @@ use crate::{board_type::BoardType, graph::Graph, node::Node};
 use std::{cell::RefCell, rc::Rc};
 
 pub struct Game {
-    board: Rc<RefCell<Vec<Vec<i32>>>>,
+    board: Rc<RefCell<Vec<Vec<i8>>>>,
     board_type: BoardType,
 }
 
 impl Game {
-    pub fn new(board: Vec<Vec<i32>>, board_type: BoardType) -> Game {
+    pub fn new(board: Vec<Vec<i8>>, board_type: BoardType) -> Game {
         if board_type.get_order() != board.len().try_into().unwrap() {
             panic!("Board size does not match board type");
         }
@@ -18,7 +18,7 @@ impl Game {
         }
     }
 
-    pub fn get_board(&self) -> Vec<Vec<i32>> {
+    pub fn get_board(&self) -> Vec<Vec<i8>> {
         self.board.borrow().clone()
     }
 

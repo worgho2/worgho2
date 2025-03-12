@@ -11,7 +11,7 @@ wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
 
 #[derive(Serialize, Deserialize)]
 pub struct SolveInput {
-    board: Vec<Vec<i32>>,
+    board: Vec<Vec<i8>>,
     board_type: String,
 }
 

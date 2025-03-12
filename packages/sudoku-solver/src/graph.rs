@@ -8,9 +8,9 @@ pub struct Graph {
 
 impl Graph {
     pub fn new(
-        board: Rc<RefCell<Vec<Vec<i32>>>>,
-        edge_model: Vec<Vec<Vec<(i32, i32)>>>,
-        order: i32,
+        board: Rc<RefCell<Vec<Vec<i8>>>>,
+        edge_model: Vec<Vec<Vec<(i8, i8)>>>,
+        order: i8,
     ) -> Graph {
         let node_matrix: Vec<Vec<Rc<RefCell<Node>>>> = (0..order)
             .map(|i| {
