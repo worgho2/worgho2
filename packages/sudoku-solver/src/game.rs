@@ -73,3 +73,35 @@ impl Game {
         max_saturation_node
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[wasm_bindgen_test::wasm_bindgen_test]
+    fn test_4_regular() {
+        let board = vec![
+            vec![4, 1, 3, -1],
+            vec![3, -1, 1, 4],
+            vec![2, 3, 4, -1],
+            vec![1, -1, 2, 3],
+        ];
+
+        let board_type = BoardType::B4Regular;
+
+        let game = Game::new(board, board_type);
+
+        let success = game.solve();
+
+        let expected_board = vec![
+            vec![4, 1, 3, 2],
+            vec![3, 2, 1, 4],
+            vec![2, 3, 4, 1],
+            vec![1, 4, 2, 3],
+        ];
+
+        assert_eq!(success, true);
+        assert_eq!(game.get_board(), expected_board);
+    }
+}
