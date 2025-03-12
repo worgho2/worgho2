@@ -2104,3 +2104,43 @@ impl BoardType {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[wasm_bindgen_test::wasm_bindgen_test]
+    fn test_group_coordinates() {
+        // iterate over all board types
+        let board_types = vec![
+            BoardType::B4Regular,
+            BoardType::B5Cross,
+            BoardType::B6Brickwall,
+            BoardType::B6Ladder,
+            BoardType::B7Diagonal,
+            BoardType::B8Brickwall,
+            BoardType::B8Ladder,
+            BoardType::B8Cross,
+            BoardType::B9Regular,
+            BoardType::B10Brickwall,
+            BoardType::B10Ladder,
+            BoardType::B10Ladder2,
+            BoardType::B10Diagonal,
+            BoardType::B10Diamond,
+            BoardType::B12Brickwall,
+            BoardType::B12Cross,
+            BoardType::B12Ladder,
+            BoardType::B12ShortAndLong,
+            BoardType::B16Regular,
+        ];
+
+        for board_type in board_types {
+            let order = board_type.get_order();
+            let edge_model = board_type.get_edge_model();
+
+            assert_eq!(edge_model.len(), order as usize);
+            assert_eq!(edge_model[0].len(), order as usize);
+        }
+    }
+}
