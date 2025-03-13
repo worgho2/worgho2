@@ -33,7 +33,7 @@ import {
   solveSudokuGameInputSchema,
 } from '@/ports/use-cases/solve-sudoku-game';
 import { ConsoleLogger } from '@/infrastructure/logger/console-logger';
-import { MockSudokuSolver } from '@/infrastructure/sudoku-solver/mock-sudoku-solver';
+import { RustSudokuSolver } from '@/infrastructure/sudoku-solver/rust-sudoku-solver';
 import { toaster } from '@/app/_components/toaster';
 
 export interface SolverFormProps extends FlexProps {}
@@ -52,7 +52,7 @@ export const SolverForm: React.FC<SolverFormProps> = ({ ...flexProps }) => {
   });
 
   const logger = new ConsoleLogger();
-  const sudokuSolver = new MockSudokuSolver();
+  const sudokuSolver = new RustSudokuSolver();
   const solveSudokuGame = new SolveSudokuGame(logger, sudokuSolver);
 
   const onSubmit: SubmitHandler<SolveSudokuGameInput> = async (data, event) => {

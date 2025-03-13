@@ -16,6 +16,12 @@ const nextConfig = {
 
     config.resolve.alias.canvas = false;
 
+    config.experiments = {
+      layers: true,
+      syncWebAssembly: true,
+      asyncWebAssembly: true,
+    };
+
     return config;
   },
 };

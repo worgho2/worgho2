@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "path": "..",
+      "name": "root",
+    },
+    {
+      "path": "../packages/sudoku-solver",
+    },
+    {
+      "path": "../packages/web",
+    },
+    {
+      "path": "../packages/url-shortener",
+    },
+  ],
+}
