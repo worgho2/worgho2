@@ -73,9 +73,10 @@ export const SolverForm: React.FC<SolverFormProps> = ({ ...flexProps }) => {
 
     if (output.error === 'SOLUTION_NOT_FOUND') {
       toaster.create({
+        id: 'solution-not-found',
         title: 'Solution not found',
         description: `The solution was not found, please check the board and try again.`,
-        duration: 5000,
+        duration: 2000,
         type: 'error',
       });
 
@@ -84,9 +85,10 @@ export const SolverForm: React.FC<SolverFormProps> = ({ ...flexProps }) => {
 
     if (output.error !== undefined) {
       toaster.create({
+        id: 'solution-not-found',
         title: output.error,
         description: `Not expected error, please tell me what happened!`,
-        duration: 5000,
+        duration: 2000,
         type: 'error',
       });
 
@@ -94,9 +96,10 @@ export const SolverForm: React.FC<SolverFormProps> = ({ ...flexProps }) => {
     }
 
     toaster.create({
+      id: 'solution-found',
       title: 'Solution Found',
       description: `Check out the board`,
-      duration: 5000,
+      duration: 2000,
       type: 'success',
     });
 
