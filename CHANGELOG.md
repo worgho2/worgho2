@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.5.0](https://github.com/worgho2/worgho2/compare/v1.4.0...v1.5.0) (2025-03-18)
+
+
+### Features
+
+* Add java testing support on java package ([d2c5ba4](https://github.com/worgho2/worgho2/commit/d2c5ba429c60300bfbed70d6124f49d2e61a50a3))
+* Add rust toolchain setup on workflow scripts ([af5bda2](https://github.com/worgho2/worgho2/commit/af5bda20e7609aaaab278be5a42e160daccb9788))
+
+
+### Bug Fixes
+
+* Adjust java test ([06a5598](https://github.com/worgho2/worgho2/commit/06a55984f5650ab43afa9262c3f6f06863fa7c4e))
+* Adjust package path on ci script ([aad0a4a](https://github.com/worgho2/worgho2/commit/aad0a4af2b26bd69a145c33ec15d2aa95b946f3c))
+
 ## [1.4.0](https://github.com/worgho2/worgho2/compare/v1.3.0...v1.4.0) (2025-03-18)
 
 
