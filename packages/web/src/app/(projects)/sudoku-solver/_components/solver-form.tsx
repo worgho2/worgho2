@@ -288,6 +288,7 @@ export const SolverForm: React.FC<SolverFormProps> = ({ ...flexProps }) => {
                 onClick={() => {
                   formMethods.reset();
                 }}
+                disabled={formMethods.formState.isSubmitting}
               >
                 Reset
               </Button>
