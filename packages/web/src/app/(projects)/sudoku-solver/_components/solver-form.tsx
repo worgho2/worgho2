@@ -12,10 +12,13 @@ import {
   For,
   Group,
   Input,
+  Link,
+  List,
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
 import NextImage from 'next/image';
+import NextLink from 'next/link';
 import { useInView } from 'motion/react';
 import { SudokuSolverBoardType } from '@/ports/sudoku-solver';
 import {
@@ -139,12 +142,52 @@ export const SolverForm: React.FC<SolverFormProps> = ({ ...flexProps }) => {
                 lineHeight={'taller'}
                 as={'div'}
               >
-                This is a project powered by a <b>Rust lib compiled to WebAssemby</b> executing a{' '}
-                <b>(Dsatur Graph Coloring + Backtracking)</b> algorithm to solve the sudoku games.
+                This is a project powered by a <b>rust-generated WebAssembly</b> executing a{' '}
+                <b>(Dsatur Graph Coloring + Backtracking)</b> algorithm to solve up to 16 sudoku
+                game variations.
                 <br />
                 <br />
-                <b>WIP:</b> The current solver is a mock implementation. Once the Rust lib is
-                finished it will be replaced by a real implementation.
+                Implementation Reference:
+                <List.Root>
+                  <List.Item>
+                    <Link
+                      asChild
+                      wordBreak={'break-word'}
+                    >
+                      <NextLink
+                        href='https://github.com/worgho2/worgho2/tree/main/packages/sudoku-solver'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        Rust-generated WebAssembly lib
+                      </NextLink>
+                    </Link>
+                  </List.Item>
+
+                  <List.Item>
+                    <Link
+                      asChild
+                      wordBreak={'break-word'}
+                    >
+                      <NextLink
+                        href='https://github.com/worgho2/worgho2/tree/main/packages/web/src/app/(projects)/sudoku-solver'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        Solver Page
+                      </NextLink>
+                    </Link>
+                  </List.Item>
+                </List.Root>
+                <br />
+                <b>
+                  ATTENTION: Trying to find a solution for an empty board will take a long time due
+                  the algorithm structure, so it&apos;s recommended to start with a board with a few
+                  numbers.
+                </b>
+                <br />
+                <br />
+                <b>WIP: Input validation and feasibility check.</b>
               </Card.Description>
             </Card.Header>
 
