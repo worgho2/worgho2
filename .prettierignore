@@ -9,3 +9,5 @@ CHANGELOG.md
 out
 *.png
 *.jpg
+dist
+target
