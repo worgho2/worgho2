@@ -1,5 +1,38 @@
 # Changelog
 
+## [1.4.0](https://github.com/worgho2/worgho2/compare/v1.3.0...v1.4.0) (2025-03-18)
+
+
+### Features
+
+* Add cache to get short url route to prevent weird cache behavior ([69f48be](https://github.com/worgho2/worgho2/commit/69f48bee05f8441a0067bf1d30c249b774389b30))
+* Add clipboard to url shortener outputs ([0420729](https://github.com/worgho2/worgho2/commit/0420729c018e252cd2daad6be7531959face9f8a))
+* Add cloudflare turnstile integration to url-shortener service ([f09a96c](https://github.com/worgho2/worgho2/commit/f09a96ceb3ecd10026cb28773d2a842e8b28a591))
+* Add color mode button to navbar ([a29f016](https://github.com/worgho2/worgho2/commit/a29f0164f2c48654bb9c3475c931810883d98391))
+* add edge model generation ([f7725cb](https://github.com/worgho2/worgho2/commit/f7725cb36df1ca0de325658970adbd5428e88a02))
+* Add hard limits to dynamodb table to avoid cost issues ([fabeb9e](https://github.com/worgho2/worgho2/commit/fabeb9e610c2cefc16978a99f781d94fd0cf4b14))
+* Add micronaut api gateway dependencies to url-shortener service ([4dabbab](https://github.com/worgho2/worgho2/commit/4dabbab2c19773ae0115a62da4681cfb7e746765))
+* Add new open graph image ([c3f3a27](https://github.com/worgho2/worgho2/commit/c3f3a27d50d95fc5f779aa6c65a4ac8b316ccaab))
+* Add simple test to sudoku solver board_type ([a588a2d](https://github.com/worgho2/worgho2/commit/a588a2d4391547ce97a61b71cee3860bc0474f13))
+* Add sudoku solver interface with mock solver ([15a61d8](https://github.com/worgho2/worgho2/commit/15a61d8b4722bced8df1b808736239ba639e1729))
+* Add test to 4 regular board game model ([9384f37](https://github.com/worgho2/worgho2/commit/9384f372afaafc2b5ada134e795209f72218473e))
+* Add url shortener api with connected funcion ([5413a8b](https://github.com/worgho2/worgho2/commit/5413a8b0f478311c5ff656bab601fdb164dfc6ef))
+* Add working version of url-shortener ([8ae7174](https://github.com/worgho2/worgho2/commit/8ae7174e29a8eb274889201b452fbe8e5d169bc0))
+* Improve sudoku solver page toasts ([080e534](https://github.com/worgho2/worgho2/commit/080e534c59be25d134e7e17eab0260953697d652))
+* Improve sudoku solver project description ([5161673](https://github.com/worgho2/worgho2/commit/51616734495626dd79783d9cfceb3a87f618efba))
+* Improve url shortener description ([b96d8a0](https://github.com/worgho2/worgho2/commit/b96d8a023d432a5e3474d153e3fe3890ed8ca56d))
+* Integrate dynamodb to url-shortener ([421c8aa](https://github.com/worgho2/worgho2/commit/421c8aa2e3fa2db3b9950389e91031dafe34a272))
+* Integrate the rust sudoku solver to web ([d7f87f0](https://github.com/worgho2/worgho2/commit/d7f87f0af435bc572dce79f046359298af88ffdf))
+* Uptimize sudoku game board format ([f8389b0](https://github.com/worgho2/worgho2/commit/f8389b0a4290a163288f7066e095f3bf5a570c10))
+
+
+### Bug Fixes
+
+* Adjust prettier ignore config ([c960602](https://github.com/worgho2/worgho2/commit/c960602af2c07289c07d57f7a40ccfeaf3a703b1))
+* Ajust existing mock short url api implementation ([affd9bf](https://github.com/worgho2/worgho2/commit/affd9bf8e2eaee482314e3a6cddbebd45de1dcb1))
+* Date construction ([9f857fe](https://github.com/worgho2/worgho2/commit/9f857fe85c5dec6c835ced17afc9b72bf08ab181))
+* ShortUrl class serialization ([8e6c3e7](https://github.com/worgho2/worgho2/commit/8e6c3e73f7ed750704e5c24dfa71b670a881c4c3))
+
 ## [1.3.0](https://github.com/worgho2/worgho2/compare/v1.2.2...v1.3.0) (2024-12-18)
 
 
