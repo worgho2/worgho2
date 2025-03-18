@@ -40,7 +40,7 @@ jobs:
           distribution: 'oracle'
           java-version: '21'
           cache: 'gradle'
-          cache-dependency-path: packages/consents/*.gradle
+          cache-dependency-path: packages/*/*.gradle
 
       - uses: gradle/gradle-build-action@v2
         with:
@@ -53,7 +53,7 @@ jobs:
           pnpm test
 
       - run: |
-          cd packages/consents 
+          cd packages/url-shortener 
           ./gradlew build --no-daemon --continue
         env:
           TESTCONTAINERS_RYUK_DISABLED: 'true'
