@@ -28,7 +28,6 @@ export default function Projects() {
         link={{
           href: '/sudoku-solver',
         }}
-        backgroundColor={'white'}
         paddingTop={{ base: 6, md: 16 }}
       />
 
@@ -47,7 +46,6 @@ export default function Projects() {
         link={{
           href: '/url-shortener',
         }}
-        backgroundColor={'white'}
         paddingTop={{ base: 6, md: 16 }}
         animationDelay={'0.1s'}
       />
@@ -66,7 +64,6 @@ export default function Projects() {
         link={{
           href: '/blog',
         }}
-        backgroundColor={'white'}
         paddingY={{ base: 6, md: 16 }}
         animationDelay={'0.2s'}
       />

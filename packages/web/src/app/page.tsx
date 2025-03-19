@@ -8,7 +8,7 @@ import { Button } from './_components/button';
 export default function Home() {
   return (
     <PageContentContainer
-      minH={'75vh'}
+      minH={'100vh'}
       pt={'60px'}
     >
       <EmptyState

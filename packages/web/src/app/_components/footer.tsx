@@ -17,10 +17,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = (props) => {
   return (
     <footer>
-      <Flex
-        bgColor={'white'}
-        py={4}
-      >
+      <Flex py={4}>
         <Container maxW='8xl'>
           <Stack
             direction={{

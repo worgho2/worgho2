@@ -71,8 +71,8 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
         left='0'
         width='100vw'
         zIndex='2'
-        bgColor='white'
         boxShadow='lg'
+        bg='bg'
       >
         <Container
           position='relative'
@@ -94,7 +94,6 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
                     src={props.logoSrc}
                     size='xs'
                     name='Otavio Baziewicz'
-                    colorPalette='black'
                     variant='outline'
                     css={{
                       outlineWidth: '2px',
@@ -158,12 +157,7 @@ const DesktopNavbarMenu: React.FC<DesktopNavbarMenuProps> = (props) => {
                       key={item.label}
                       value={item.label}
                     >
-                      <Text
-                        color={'gray.900'}
-                        fontSize={{ base: 'sm', xl: 'md' }}
-                      >
-                        {item.label}
-                      </Text>
+                      <Text fontSize={{ base: 'sm', xl: 'md' }}>{item.label}</Text>
                     </Tabs.Trigger>
                   </NextLink>
                 </Link>
@@ -187,12 +181,7 @@ const DesktopNavbarMenu: React.FC<DesktopNavbarMenuProps> = (props) => {
                       asChild
                     >
                       <HStack>
-                        <Text
-                          color={'gray.900'}
-                          fontSize={{ base: 'sm', xl: 'lg' }}
-                        >
-                          {item.label}
-                        </Text>
+                        <Text fontSize={{ base: 'sm', xl: 'lg' }}>{item.label}</Text>
 
                         <LuChevronDown />
                       </HStack>
@@ -214,7 +203,6 @@ const DesktopNavbarMenu: React.FC<DesktopNavbarMenuProps> = (props) => {
                           >
                             <NextLink href={child.pathname}>
                               <Text
-                                color={'gray.900'}
                                 fontWeight={'medium'}
                                 textTransform={'uppercase'}
                                 fontSize={{ base: 'sm', xl: 'md' }}
@@ -290,12 +278,7 @@ const MobileNavbarMenu: React.FC<MobileNavbarMenuProps> = (props) => {
                               !item.children ? setOpen(false) : undefined;
                             }}
                           >
-                            <Text
-                              color={'gray.900'}
-                              fontSize={{ base: 'md', xl: 'lg' }}
-                            >
-                              {item.label}
-                            </Text>
+                            <Text fontSize={{ base: 'md', xl: 'lg' }}>{item.label}</Text>
                           </AccordionItemTrigger>
                         </NextLink>
                       </Link>
@@ -306,12 +289,7 @@ const MobileNavbarMenu: React.FC<MobileNavbarMenuProps> = (props) => {
                           !item.children ? setOpen(false) : undefined;
                         }}
                       >
-                        <Text
-                          color={'gray.900'}
-                          fontSize={{ base: 'md', xl: 'lg' }}
-                        >
-                          {item.label}
-                        </Text>
+                        <Text fontSize={{ base: 'md', xl: 'lg' }}>{item.label}</Text>
                       </AccordionItemTrigger>
                     )}
 
@@ -334,12 +312,7 @@ const MobileNavbarMenu: React.FC<MobileNavbarMenuProps> = (props) => {
                               }}
                             >
                               <NextLink href={child.pathname}>
-                                <Text
-                                  color={'gray.900'}
-                                  fontSize={'md'}
-                                >
-                                  {child.label}
-                                </Text>
+                                <Text fontSize={'md'}>{child.label}</Text>
                               </NextLink>
                             </Link>
                           )}

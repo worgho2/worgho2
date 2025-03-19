@@ -31,7 +31,7 @@ export function useColorMode() {
   };
 }
 
-export function useColorModeValue<T>(light: T, dark: T) {
+export function useColorModeValue<T, K>(light: T, dark: K) {
   const { colorMode } = useColorMode();
   return colorMode === 'light' ? light : dark;
 }

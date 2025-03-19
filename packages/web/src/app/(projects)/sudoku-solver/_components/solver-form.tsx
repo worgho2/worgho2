@@ -38,6 +38,7 @@ import {
 import { ConsoleLogger } from '@/infrastructure/logger/console-logger';
 import { RustSudokuSolver } from '@/infrastructure/sudoku-solver/rust-sudoku-solver';
 import { toaster } from '@/app/_components/toaster';
+import { useColorModeValue } from '@/app/_components/color-mode';
 
 export interface SolverFormProps extends FlexProps {}
 
@@ -307,12 +308,28 @@ export const SolverForm: React.FC<SolverFormProps> = ({ ...flexProps }) => {
                                   borderRadius={0}
                                   _focusVisible={{
                                     outline: 'none',
-                                    borderColor: 'blue.500',
+                                    borderColor: 'border.success',
                                   }}
-                                  borderLeft={borderLeft ? '2px solid black' : undefined}
-                                  borderTop={borderTop ? '2px solid black' : undefined}
-                                  borderRight={borderRight ? '2px solid black' : undefined}
-                                  borderBottom={borderBottom ? '2px solid black' : undefined}
+                                  borderLeft={
+                                    borderLeft
+                                      ? useColorModeValue('2px solid black', '2px solid white')
+                                      : undefined
+                                  }
+                                  borderTop={
+                                    borderTop
+                                      ? useColorModeValue('2px solid black', '2px solid white')
+                                      : undefined
+                                  }
+                                  borderRight={
+                                    borderRight
+                                      ? useColorModeValue('2px solid black', '2px solid white')
+                                      : undefined
+                                  }
+                                  borderBottom={
+                                    borderBottom
+                                      ? useColorModeValue('2px solid black', '2px solid white')
+                                      : undefined
+                                  }
                                   {...formMethods.register(`board.${rowIndex}.${columnIndex}`)}
                                 />
                               );
