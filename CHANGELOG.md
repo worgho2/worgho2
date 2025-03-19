@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/worgho2/worgho2/compare/v1.5.0...v1.5.1) (2025-03-19)
+
+
+### Bug Fixes
+
+* Adjust dark mode colors ([33220a0](https://github.com/worgho2/worgho2/commit/33220a01aa59c4f3a2e19e703e5dda71d77a46fc))
+
 ## [1.5.0](https://github.com/worgho2/worgho2/compare/v1.4.0...v1.5.0) (2025-03-18)
 
 
