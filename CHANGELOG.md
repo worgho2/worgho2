@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/worgho2/worgho2/compare/v1.5.1...v1.6.0) (2025-03-24)
+
+
+### Features
+
+* Improve sudoku validation ([2c6c713](https://github.com/worgho2/worgho2/commit/2c6c71392b9c8e2f4b02c110441491c463d16012))
+
 ## [1.5.1](https://github.com/worgho2/worgho2/compare/v1.5.0...v1.5.1) (2025-03-19)
 
 
