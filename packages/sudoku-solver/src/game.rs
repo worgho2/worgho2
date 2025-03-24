@@ -12,6 +12,14 @@ impl Game {
             panic!("Board size does not match board type");
         }
 
+        for i in 0..board.len() {
+            for j in 0..board.len() {
+                if board[i][j] < -1 || board[i][j] > board.len().try_into().unwrap() {
+                    panic!("Board contains invalid values");
+                }
+            }
+        }
+
         Game {
             board: Rc::new(RefCell::new(board)),
             board_type,
