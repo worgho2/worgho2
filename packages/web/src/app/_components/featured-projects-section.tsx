@@ -1,19 +1,29 @@
 'use client';
 
 import {
+  Badge,
   Box,
   Container,
   Heading,
-  Text,
-  SimpleGrid,
-  VStack,
   HStack,
   Icon,
-  Button,
-  Badge,
   Link,
+  SimpleGrid,
+  Text,
+  VStack,
 } from '@chakra-ui/react';
-import { SiRust, SiReact, SiNextdotjs, SiTypescript, SiAmazon, SiNotion } from 'react-icons/si';
+import {
+  SiRust,
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiNotion,
+  SiWebassembly,
+  SiAmazondynamodb,
+  SiFramework,
+  SiGradle,
+  SiChakraui,
+} from 'react-icons/si';
 import {
   FaExternalLinkAlt,
   FaGithub,
@@ -23,80 +33,112 @@ import {
   FaBook,
   FaJava,
 } from 'react-icons/fa';
+import { Button } from './button';
+import { IconType } from 'react-icons/lib';
+import { useColorModeValue } from './color-mode';
 
-const projects = [
+interface Technology {
+  name: string;
+  icon?: IconType;
+  color: string;
+}
+
+interface Project {
+  title: string;
+  description: string;
+  technologies: Technology[];
+  icon: IconType;
+  color: string;
+  gradient: string;
+  features: string[];
+  sourceCodeUrl: string;
+  demoUrl: string;
+  status: 'Live' | 'In Progress' | 'On Hold';
+}
+
+const projects: Project[] = [
   {
     title: 'Sudoku Solver',
     description:
-      'High-performance Sudoku solver built with Rust and compiled to WebAssembly for blazing-fast browser execution. Features advanced algorithms and an intuitive React interface.',
-    technologies: ['Rust', 'WebAssembly', 'React', 'TypeScript'],
-    techIcons: [SiRust, SiReact, SiTypescript],
+      'High-performance Sudoku solver built with Rust and compiled to WebAssembly for blazing-fast browser execution. Features graph coloring and backtracking algorithms.',
+    technologies: [
+      { name: 'Rust', icon: SiRust, color: '#CE422B' },
+      { name: 'WebAssembly', icon: SiWebassembly, color: '#61DAFB' },
+      { name: 'React', icon: SiReact, color: '#61DAFB' },
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+    ],
     icon: FaBrain,
     color: '#CE422B',
     gradient: 'linear(to-br, orange.400, red.500)',
     features: [
       'Rust-powered WebAssembly core',
-      'Sub-millisecond solving times',
-      'Interactive puzzle interface',
-      'Multiple difficulty levels',
+      'Multiple game modes',
+      'Graph coloring modelling',
+      'Backtracking solver',
     ],
     demoUrl: '/sudoku-solver',
-    githubUrl: 'https://github.com/worgho2/sudoku-solver',
+    sourceCodeUrl: 'https://github.com/worgho2/sudoku-solver',
     status: 'Live',
   },
   {
     title: 'URL Shortener',
     description:
-      'Enterprise-grade URL shortening service built with Java Micronaut and deployed on AWS. Features custom domains, analytics, and high-availability architecture.',
-    technologies: ['Java', 'Micronaut', 'AWS', 'DynamoDB'],
-    techIcons: [FaJava, SiAmazon],
+      'Enterprise-grade URL shortening service built with Java Micronaut and deployed on AWS. Features custom paths and auto-expiry.',
+    technologies: [
+      { name: 'Java', icon: FaJava, color: '#007396' },
+      { name: 'Micronaut', icon: SiFramework, color: '#007396' },
+      { name: 'Gradle', icon: SiGradle, color: '#007396' },
+      { name: 'DynamoDB', icon: SiAmazondynamodb, color: '#405059' },
+    ],
     icon: FaLink,
     color: '#ED8B00',
     gradient: 'linear(to-br, blue.400, purple.500)',
-    features: [
-      'Serverless AWS architecture',
-      'Custom domain support',
-      'Real-time analytics',
-      '99.9% uptime SLA',
-    ],
+    features: ['Serverless architecture', 'Custom paths', 'Auto-expiry', 'Turnstile captcha'],
     demoUrl: '/url-shortener',
-    githubUrl: 'https://github.com/worgho2/url-shortener',
+    sourceCodeUrl: 'https://github.com/worgho2/url-shortener',
     status: 'Live',
   },
   {
     title: 'Notion Blog',
     description:
       'Modern blog platform powered by Notion as a CMS, built with Next.js. Seamlessly integrates content management with a beautiful, fast-loading frontend.',
-    technologies: ['Next.js', 'Notion API', 'TypeScript', 'Vercel'],
-    techIcons: [SiNextdotjs, SiNotion, SiTypescript],
+    technologies: [
+      { name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
+      { name: 'Notion', icon: SiNotion, color: '#000000' },
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+      { name: 'Chakra UI', icon: SiChakraui, color: '#000000' },
+    ],
     icon: FaBook,
-    color: '#000000',
+    color: '#805AD5',
     gradient: 'linear(to-br, gray.600, gray.800)',
     features: [
-      'Notion-powered CMS',
+      'Notion as CMS',
       'Static site generation',
       'SEO optimized',
-      'Lightning-fast performance',
+      'Lightning-fast loading',
     ],
     demoUrl: '/blog',
-    githubUrl: 'https://github.com/worgho2/notion-blog',
+    sourceCodeUrl: 'https://github.com/worgho2/notion-blog',
     status: 'Live',
   },
 ];
 
-const ProjectCard = ({ project }: { project: any }) => {
+interface ProjectCardProps {
+  project: Project;
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
     <Box
-      bg={{ base: 'white', _dark: 'gray.800' }}
-      border='1px'
-      borderColor={{ base: 'gray.200', _dark: 'gray.700' }}
+      bg={{ base: 'white', _dark: 'gray.900' }}
+      borderWidth='1px'
+      borderColor={{ base: 'gray.200', _dark: 'black' }}
       borderRadius='xl'
       overflow='hidden'
       transition='all 0.3s ease'
       _hover={{
         transform: 'translateY(-4px)',
         shadow: '2xl',
-        borderColor: project.color,
       }}
       position='relative'
     >
@@ -108,7 +150,7 @@ const ProjectCard = ({ project }: { project: any }) => {
         zIndex={2}
       >
         <Badge
-          colorScheme={project.status === 'Live' ? 'green' : 'yellow'}
+          colorPalette={project.status === 'Live' ? 'green' : 'yellow'}
           variant='solid'
           borderRadius='full'
           px={3}
@@ -129,7 +171,7 @@ const ProjectCard = ({ project }: { project: any }) => {
       >
         <Icon
           boxSize={12}
-          color='white'
+          color={useColorModeValue('gray.400', 'whiteAlpha.500')}
         >
           <project.icon />
         </Icon>
@@ -141,7 +183,7 @@ const ProjectCard = ({ project }: { project: any }) => {
           left={4}
           w={3}
           h={3}
-          bg='white'
+          bg='gray.200'
           borderRadius='full'
           opacity={0.3}
         />
@@ -151,7 +193,7 @@ const ProjectCard = ({ project }: { project: any }) => {
           right={6}
           w={2}
           h={2}
-          bg='white'
+          bg='gray.200'
           borderRadius='full'
           opacity={0.4}
         />
@@ -196,16 +238,24 @@ const ProjectCard = ({ project }: { project: any }) => {
             gap={2}
             flexWrap='wrap'
           >
-            {project.technologies.map((tech: string) => (
+            {project.technologies.map((tech) => (
               <Badge
-                key={tech}
+                key={tech.name}
                 variant='outline'
-                colorScheme='blue'
+                colorPalette='blue'
                 borderRadius='full'
                 px={3}
                 py={1}
               >
-                {tech}
+                {tech.icon && (
+                  <Icon
+                    boxSize={3}
+                    color={tech.color}
+                  >
+                    <tech.icon />
+                  </Icon>
+                )}
+                {tech.name}
               </Badge>
             ))}
           </HStack>
@@ -259,7 +309,7 @@ const ProjectCard = ({ project }: { project: any }) => {
           >
             <Button
               size='sm'
-              colorScheme='blue'
+              colorPalette='blue'
               w='100%'
             >
               <HStack gap={2}>
@@ -270,8 +320,9 @@ const ProjectCard = ({ project }: { project: any }) => {
               </HStack>
             </Button>
           </Link>
+
           <Link
-            href={project.githubUrl}
+            href={project.sourceCodeUrl}
             flex={1}
             _hover={{ textDecoration: 'none' }}
           >
@@ -294,7 +345,7 @@ const ProjectCard = ({ project }: { project: any }) => {
   );
 };
 
-export default function FeaturedProjectsSection() {
+export const FeaturedProjectsSection: React.FC = () => {
   return (
     <Box
       as='section'
@@ -339,7 +390,7 @@ export default function FeaturedProjectsSection() {
             <Heading
               size='2xl'
               bgGradient='linear(to-r, blue.400, purple.500, pink.400)'
-              bgClip='text'
+              colorPalette='white'
               fontWeight='bold'
             >
               Featured Projects
@@ -385,7 +436,7 @@ export default function FeaturedProjectsSection() {
             >
               <Button
                 size='lg'
-                colorScheme='blue'
+                colorPalette='blue'
                 // leftIcon={<FaGithub />/ˀ
               >
                 View All Projects
@@ -396,4 +447,4 @@ export default function FeaturedProjectsSection() {
       </Container>
     </Box>
   );
-}
+};

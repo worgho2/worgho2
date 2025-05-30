@@ -79,8 +79,9 @@ export const AboutSection: React.FC = () => {
               color='fg.muted'
               maxW='3xl'
             >
-              Passionate about creating innovative solutions that bridge the gap between complex
-              technical challenges and elegant user experiences.
+              Passionate backend engineer specializing in Node.js and TypeScript, dedicated to
+              crafting well-architected solutions that solve real-world problems with elegance and
+              scalability.
             </Text>
           </VStack>
 
@@ -108,10 +109,11 @@ export const AboutSection: React.FC = () => {
                   color='#667eea'
                   fontWeight='bold'
                 >
-                  Otávio Baziewicz
+                  Otávio
                 </Text>
-                , a full-stack architect with a passion for pushing the boundaries of what's
-                possible in software development.
+                , a software engineer who specializes in Node.js and TypeScript backend development.
+                I'm passionate about creating solutions from scratch with well-architected code as
+                my core principle.
               </Text>
 
               <Text
@@ -119,10 +121,10 @@ export const AboutSection: React.FC = () => {
                 color='fg.muted'
                 lineHeight='relaxed'
               >
-                My journey spans from crafting high-performance algorithms in Rust and compiling
-                them to WebAssembly, to building scalable serverless architectures on AWS. I believe
-                in the power of choosing the right tool for each challenge, whether it's Java with
-                Micronaut for robust microservices or Next.js for dynamic web experiences.
+                My expertise lies in implementing robust architectural patterns like Domain-Driven
+                Design (DDD), Clean Architecture, and Hexagonal Architecture. I thrive in startup
+                environments where rapid prototyping meets rigorous engineering standards, creating
+                proof-of-concept software that validates feasibility while maintaining code quality.
               </Text>
 
               <Text
@@ -130,10 +132,10 @@ export const AboutSection: React.FC = () => {
                 color='fg.muted'
                 lineHeight='relaxed'
               >
-                When I'm not coding, you'll find me exploring new technologies, contributing to
-                open-source projects, or sharing my knowledge through technical writing. I'm
-                constantly learning and evolving, always seeking to turn complex problems into
-                elegant, maintainable solutions.
+                Beyond backend development, I design complete application ecosystems - from
+                selecting the right tools and designing cloud architecture to implementing release
+                management and CI/CD pipelines. I believe in building solutions that are not just
+                functional, but maintainable, scalable, and ready for the challenges of tomorrow.
               </Text>
             </VStack>
 
@@ -145,26 +147,26 @@ export const AboutSection: React.FC = () => {
               >
                 <HighlightCard
                   icon={<LuCode />}
-                  title='Full-Stack Expertise'
-                  description='From Rust-powered WebAssembly to modern React applications, I work across the entire technology stack.'
+                  title='Backend Specialist'
+                  description='Expert in Node.js and TypeScript, building robust APIs and microservices with modern development practices.'
                 />
 
                 <HighlightCard
                   icon={<LuRocket />}
-                  title='Performance Focused'
-                  description='Obsessed with creating fast, efficient solutions that scale beautifully and provide exceptional user experiences.'
+                  title='Startup Experience'
+                  description='Proven track record in fast-paced startup environments, creating MVPs and proof-of-concepts that validate business ideas.'
                 />
 
                 <HighlightCard
                   icon={<LuBrain />}
-                  title='Problem Solver'
-                  description='I thrive on complex challenges, using algorithmic thinking and creative approaches to find elegant solutions.'
+                  title='Architecture Expert'
+                  description='Deep knowledge of DDD, Clean Architecture, and Hexagonal Architecture principles for maintainable codebases.'
                 />
 
                 <HighlightCard
                   icon={<LuTarget />}
-                  title='Quality Driven'
-                  description='Every line of code is written with maintainability, scalability, and best practices in mind.'
+                  title='Full-Stack Solutions'
+                  description='End-to-end application design including cloud architecture, DevOps practices, and comprehensive CI/CD pipelines.'
                 />
               </SimpleGrid>
             </Box>

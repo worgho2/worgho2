@@ -1,4 +1,3 @@
-import { ServerErrors } from '@/domain/server-errors';
 import { z } from 'zod';
 import { ClientError } from './client-error';
 
@@ -11,11 +10,11 @@ const publicEnvSchema = z.object({
 
 type PublicEnv = z.infer<typeof publicEnvSchema>;
 
-const privateEnvSchema = z.object({
-  DISCORD_NOTIFICATION_WEBHOOK_URL: z.string(),
-});
+// const privateEnvSchema = z.object({
+//   DISCORD_NOTIFICATION_WEBHOOK_URL: z.string(),
+// });
 
-type PrivateEnv = z.infer<typeof privateEnvSchema>;
+// type PrivateEnv = z.infer<typeof privateEnvSchema>;
 
 export const getPublicEnv = <T extends keyof PublicEnv>(key: T): PublicEnv[T] => {
   /**
@@ -42,13 +41,13 @@ export const getPublicEnv = <T extends keyof PublicEnv>(key: T): PublicEnv[T] =>
   return data as PublicEnv[T];
 };
 
-export const getPrivateEnv = <T extends keyof PrivateEnv>(key: T): PrivateEnv[T] => {
-  const { success, data, error } = privateEnvSchema.shape[key].safeParse(process.env[key]);
+// export const getPrivateEnv = <T extends keyof PrivateEnv>(key: T): PrivateEnv[T] => {
+//   const { success, data, error } = privateEnvSchema.shape[key].safeParse(process.env[key]);
 
-  if (!success) {
-    const errors = error.errors.map((e) => e.message).join(', ');
-    throw ServerErrors.validation(`Private env "${key}": [${errors}]`);
-  }
+//   if (!success) {
+//     const errors = error.errors.map((e) => e.message).join(', ');
+//     throw ServerErrors.validation(`Private env "${key}": [${errors}]`);
+//   }
 
-  return data as PrivateEnv[T];
-};
+//   return data as PrivateEnv[T];
+// };

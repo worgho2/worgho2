@@ -6,72 +6,105 @@ import {
   SiJavascript,
   SiTypescript,
   SiPython,
-  SiGo,
   SiReact,
   SiNextdotjs,
-  SiNodedotjs,
-  SiExpress,
   SiAmazon,
   SiDocker,
-  SiKubernetes,
   SiTerraform,
   SiPostgresql,
   SiMongodb,
   SiRedis,
-  SiElasticsearch,
   SiGit,
   SiLinux,
-  SiVim,
-  SiVscodium,
+  SiZsh,
+  SiSwift,
+  SiShell,
+  SiWebassembly,
+  SiChakraui,
+  SiVite,
+  SiGooglecloud,
+  SiJenkins,
+  SiRailway,
+  SiGithubactions,
+  SiVectorworks,
+  SiSqlite,
+  SiAmazonwebservices,
+  SiNodedotjs,
 } from 'react-icons/si';
 import { FaServer, FaCloud, FaDatabase, FaTools, FaJava } from 'react-icons/fa';
+import { VscVscode } from 'react-icons/vsc';
+import { IconType } from 'react-icons';
 
-const skillCategories = [
+interface Skill {
+  name: string;
+  icon: IconType;
+  color: string;
+}
+
+interface SkillCategory {
+  title: string;
+  icon: IconType;
+  skills: Skill[];
+}
+
+const skillCategories: SkillCategory[] = [
   {
-    title: 'Languages',
+    title: 'Languages & Tools',
     icon: FaTools,
     skills: [
-      { name: 'Rust', icon: SiRust, level: 90, color: '#CE422B' },
-      { name: 'TypeScript', icon: SiTypescript, level: 95, color: '#3178C6' },
-      { name: 'JavaScript', icon: SiJavascript, level: 95, color: '#F7DF1E' },
-      { name: 'Java', icon: FaJava, level: 85, color: '#ED8B00' },
-      { name: 'Python', icon: SiPython, level: 80, color: '#3776AB' },
-      { name: 'Go', icon: SiGo, level: 75, color: '#00ADD8' },
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+      { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
+      { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
+      { name: 'Swift', icon: SiSwift, color: '#F05138' },
+      { name: 'Shell', icon: SiShell, color: '#00ADD8' },
+      { name: 'Python', icon: SiPython, color: '#3776AB' },
+      { name: 'Rust', icon: SiRust, color: '#CE422B' },
+      { name: 'Java', icon: FaJava, color: '#ED8B00' },
     ],
   },
   {
     title: 'Frontend',
     icon: FaServer,
     skills: [
-      { name: 'React', icon: SiReact, level: 95, color: '#61DAFB' },
-      { name: 'Next.js', icon: SiNextdotjs, level: 90, color: '#000000' },
-      { name: 'WebAssembly', icon: SiRust, level: 85, color: '#654FF0' },
-      { name: 'Node.js', icon: SiNodedotjs, level: 90, color: '#339933' },
+      { name: 'React', icon: SiReact, color: '#61DAFB' },
+      { name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
+      { name: 'WebAssembly', icon: SiWebassembly, color: '#654FF0' },
+      { name: 'Vite', icon: SiVite, color: '#019733' },
+      { name: 'Chakra UI', icon: SiChakraui, color: '#000000' },
     ],
   },
   {
     title: 'Cloud & DevOps',
     icon: FaCloud,
     skills: [
-      { name: 'AWS', icon: SiAmazon, level: 90, color: '#FF9900' },
-      { name: 'Docker', icon: SiDocker, level: 85, color: '#2496ED' },
-      { name: 'Kubernetes', icon: SiKubernetes, level: 80, color: '#326CE5' },
-      { name: 'Terraform', icon: SiTerraform, level: 85, color: '#7B42BC' },
+      { name: 'AWS', icon: SiAmazonwebservices, color: '#FF9900' },
+      { name: 'GCP', icon: SiGooglecloud, color: '#4285F4' },
+      { name: 'Railway', icon: SiRailway, color: '#2496ED' },
+      { name: 'Docker', icon: SiDocker, color: '#2496ED' },
+      { name: 'GitHub Actions', icon: SiGithubactions, color: '#24292E' },
+      { name: 'Jenkins', icon: SiJenkins, color: '#D24939' },
+      { name: 'Terraform', icon: SiTerraform, color: '#7B42BC' },
+      { name: 'AWS CDK', icon: SiAmazonwebservices, color: '#FF9900' },
     ],
   },
   {
     title: 'Databases',
     icon: FaDatabase,
     skills: [
-      { name: 'PostgreSQL', icon: SiPostgresql, level: 90, color: '#336791' },
-      { name: 'MongoDB', icon: SiMongodb, level: 85, color: '#47A248' },
-      { name: 'Redis', icon: SiRedis, level: 80, color: '#DC382D' },
-      { name: 'Elasticsearch', icon: SiElasticsearch, level: 75, color: '#005571' },
+      { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
+      { name: 'Redis', icon: SiRedis, color: '#DC382D' },
+      { name: 'PostgreSQL', icon: SiPostgresql, color: '#336791' },
+      { name: 'SQLite', icon: SiSqlite, color: '#003B57' },
+      { name: 'Pinecone Vector Database', icon: SiVectorworks, color: '#005571' },
     ],
   },
 ];
 
-const SkillCard = ({ skill }: { skill: any }) => {
+interface SkillCardProps {
+  skill: Skill;
+}
+
+const SkillCard: React.FC<SkillCardProps> = ({ skill }) => {
   return (
     <Box
       p={4}
@@ -122,7 +155,7 @@ const SkillCard = ({ skill }: { skill: any }) => {
             fontSize='xs'
             color='gray.500'
           >
-            {skill.level}%
+            %
           </Text>
         </HStack>
         <Box
@@ -135,7 +168,7 @@ const SkillCard = ({ skill }: { skill: any }) => {
             h='100%'
             bg={skill.color}
             borderRadius='full'
-            width={`${skill.level}%`}
+            width={`100%`}
             transition='width 1s ease-out'
             style={{
               animation: 'fillBar 1.5s ease-out',
@@ -147,13 +180,17 @@ const SkillCard = ({ skill }: { skill: any }) => {
   );
 };
 
-const CategorySection = ({ category }: { category: any }) => {
+interface CategorySectionProps {
+  category: SkillCategory;
+}
+
+const CategorySection: React.FC<CategorySectionProps> = ({ category }) => {
   return (
     <Box
       p={6}
       bg={{ base: 'gray.50', _dark: 'gray.900' }}
-      border='1px'
-      borderColor={{ base: 'gray.200', _dark: 'gray.700' }}
+      borderWidth='1px'
+      borderColor={{ base: 'gray.200', _dark: 'gray.800' }}
       borderRadius='xl'
       transition='all 0.3s ease'
       _hover={{
@@ -182,7 +219,7 @@ const CategorySection = ({ category }: { category: any }) => {
         columns={{ base: 1, md: 2 }}
         gap={4}
       >
-        {category.skills.map((skill: any) => (
+        {category.skills.map((skill) => (
           <SkillCard
             key={skill.name}
             skill={skill}
@@ -193,7 +230,7 @@ const CategorySection = ({ category }: { category: any }) => {
   );
 };
 
-export default function SkillsSection() {
+export const SkillsSection: React.FC = () => {
   return (
     <Box
       as='section'
@@ -228,7 +265,7 @@ export default function SkillsSection() {
             <Heading
               size='2xl'
               bgGradient='linear(to-r, blue.400, purple.500, pink.400)'
-              bgClip='text'
+              colorPalette='white'
               fontWeight='bold'
             >
               Technical Arsenal
@@ -265,7 +302,7 @@ export default function SkillsSection() {
             <Heading
               size='lg'
               mb={6}
-              color={'white'}
+              colorPalette='white'
             >
               Development Environment
             </Heading>
@@ -277,8 +314,9 @@ export default function SkillsSection() {
               {[
                 { icon: SiGit, name: 'Git', color: '#F05032' },
                 { icon: SiLinux, name: 'Linux', color: '#FCC624' },
-                { icon: SiVim, name: 'Vim', color: '#019733' },
-                { icon: SiVscodium, name: 'VS Code', color: '#007ACC' },
+                { icon: SiZsh, name: 'Zsh', color: '#019733' },
+                { icon: SiDocker, name: 'Docker', color: '#2496ED' },
+                { icon: VscVscode, name: 'VS Code', color: '#007ACC' },
               ].map((tool) => (
                 <VStack
                   key={tool.name}
@@ -317,4 +355,4 @@ export default function SkillsSection() {
       `}</style>
     </Box>
   );
-}
+};

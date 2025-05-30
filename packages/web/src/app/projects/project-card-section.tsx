@@ -4,7 +4,7 @@ import { Card, Container, Flex, FlexProps, Link } from '@chakra-ui/react';
 import React from 'react';
 import { useInView } from 'motion/react';
 import NextLink from 'next/link';
-import { Button } from '@/app/_components/button';
+import { Button } from '@/components';
 
 export interface ProjectCardSectionProps extends FlexProps {
   name: string;

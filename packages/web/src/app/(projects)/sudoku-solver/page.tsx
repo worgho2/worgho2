@@ -1,7 +1,7 @@
-import { PageContentContainer } from '@/app/_components/page-content-container';
+import { PageContentContainer } from '@/components';
 import { Metadata } from 'next';
-import { baseMetadata } from '@/app/_helpers/seo';
-import { SolverForm } from './_components/solver-form';
+import { baseMetadata } from '@/helpers';
+import { SolverForm } from './solver-form';
 
 export const metadata: Metadata = {
   title: 'Sudoku Solver',

@@ -1,13 +1,29 @@
-import { Logger } from '@/ports/logger';
-import {
-  ShortUrlApi,
-  ShortUrlApiCreateInput,
-  ShortUrlApiCreateOutput,
-  ShortUrlData,
-} from '@/ports/short-url-api';
 import { z } from 'zod';
+import { Logger } from './logger';
 
-export class MicronautShortUrlApi implements ShortUrlApi {
+export type ShortUrlData = {
+  slug: string;
+  originalUrl: string;
+  createdAt: Date;
+  expiresAt: Date;
+};
+
+export type UrlShortenerApiCreateInput = {
+  slug: string;
+  originalUrl: string;
+  captcha: string;
+};
+
+export type UrlShortenerApiCreateOutput =
+  | (ShortUrlData & { error: undefined })
+  | { error: 'SLUG_IS_ALREADY_TAKEN' | 'CAPTCHA_IS_INVALID' | 'INTERNAL_ERROR' };
+
+export interface UrlShortenerApi {
+  create(input: UrlShortenerApiCreateInput): Promise<UrlShortenerApiCreateOutput>;
+  getBySlug(slug: string): Promise<ShortUrlData | undefined>;
+}
+
+export class UrlShortenerApiImpl implements UrlShortenerApi {
   constructor(
     private readonly logger: Logger,
     private readonly apiUrl: string
@@ -17,7 +33,7 @@ export class MicronautShortUrlApi implements ShortUrlApi {
     return new URL(path.replace(/^\//, ''), this.apiUrl);
   }
 
-  create = async (input: ShortUrlApiCreateInput): Promise<ShortUrlApiCreateOutput> => {
+  create = async (input: UrlShortenerApiCreateInput): Promise<UrlShortenerApiCreateOutput> => {
     const response = await fetch(this.buildRoute('/api/short-urls'), {
       method: 'POST',
       headers: {

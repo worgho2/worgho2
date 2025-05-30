@@ -1,13 +1,8 @@
 import { Metadata, ResolvingMetadata } from 'next';
-import { ConsoleLogger } from '@/infrastructure/logger/console-logger';
-import { XNotionGateway } from '@/infrastructure/notion-gateway/x-notion-gateway';
-import { GetBlogPage } from '@/ports/use-cases/get-blog-page';
 import { notFound } from 'next/navigation';
-import { PageContentContainer } from '@/app/_components/page-content-container';
-import { NotionPage } from '../../_components/notion-page';
-import { ListBlogPages } from '@/ports/use-cases/list-blog-pages';
-import { isProd } from '@/app/_helpers/is-prod';
-import { baseMetadata } from '@/app/_helpers/seo';
+import { NotionPage, PageContentContainer } from '@/components';
+import { isProd, baseMetadata } from '@/helpers';
+import { LoggerImpl, NotionApiImpl } from '@/services';
 
 interface BlogPageProps {
   params: {
@@ -20,14 +15,12 @@ export const dynamicParams = true;
 
 const rootPageId = '160f39914acb80678fc5f1e90b4ab072';
 const rootNotionSpaceId = '88eab0a2-d9fd-4864-9d31-e1463240050a';
-const logger = new ConsoleLogger();
-const notionGateway = new XNotionGateway(logger, revalidate, ['blog'], rootNotionSpaceId);
-const listBlogPages = new ListBlogPages(logger, notionGateway);
-const getBlogPage = new GetBlogPage(logger, notionGateway);
+const logger = new LoggerImpl();
+const notionApi = new NotionApiImpl(logger, revalidate, ['blog'], rootNotionSpaceId);
 
 export async function generateStaticParams(): Promise<BlogPageProps['params'][]> {
   if (!isProd()) return [];
-  const pages = await listBlogPages.execute({ rootPageId });
+  const pages = await notionApi.listPages(rootPageId);
   return [{}, ...pages.map((page) => ({ pageId: [page.id] }))];
 }
 
@@ -36,7 +29,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const pageId = props.params.pageId?.[0] ?? rootPageId;
-  const blogPage = await getBlogPage.execute({ pageId });
+  const blogPage = await notionApi.getPage(pageId);
 
   const title = pageId === rootPageId ? 'Blog' : (blogPage?.title ?? 'Blog');
 
@@ -57,7 +50,7 @@ export async function generateMetadata(
 
 export default async function BlogPage(props: BlogPageProps) {
   const pageId = props.params.pageId?.[0] ?? rootPageId;
-  const blogPage = await getBlogPage.execute({ pageId });
+  const blogPage = await notionApi.getPage(pageId);
 
   if (!blogPage) {
     notFound();

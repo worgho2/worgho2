@@ -1,12 +1,48 @@
-import {
-  SudokuSolver,
-  SudokuSolverBoardType,
-  SudokuSolverGame,
-  SudokuSolverSolveOutput,
-} from '@/ports/sudoku-solver';
 import init, { solve } from '@worgho2/sudoku-solver';
 
-export class RustSudokuSolver implements SudokuSolver {
+export type SudokuSolverBoardType =
+  | '4_regular'
+  | '5_cross'
+  | '6_brickwall'
+  | '6_ladder'
+  | '7_diagonal'
+  | '8_brickwall'
+  | '8_ladder'
+  | '8_cross'
+  | '9_regular'
+  | '10_brickwall'
+  | '10_ladder'
+  | '10_ladder_2'
+  | '10_diagonal'
+  | '10_diamond'
+  | '12_cross'
+  | '12_short_and_long'
+  | '12_ladder'
+  | '12_brickwall'
+  | '16_regular';
+
+export type SudokuSolverBoard = number[][];
+
+export type SudokuSolverGame = {
+  board: SudokuSolverBoard;
+  type: SudokuSolverBoardType;
+};
+
+export type SudokuSolverSolveOutput =
+  | {
+      error: undefined;
+      game: SudokuSolverGame;
+    }
+  | {
+      error: 'INVALID_GAME' | 'SOLUTION_NOT_FOUND';
+    };
+
+export interface SudokuSolver {
+  solve(game: SudokuSolverGame): Promise<SudokuSolverSolveOutput>;
+  validate(game: SudokuSolverGame): Promise<boolean>;
+}
+
+export class SudokuSolverImpl implements SudokuSolver {
   private static mapBoardType = (boardType: SudokuSolverBoardType): string => {
     const mapper: Record<SudokuSolverBoardType, string> = {
       '4_regular': 'B4Regular',
@@ -39,7 +75,7 @@ export class RustSudokuSolver implements SudokuSolver {
 
       const board = solve({
         board: game.board.map((row) => row.map((cell) => (cell === 0 ? -1 : cell))),
-        board_type: RustSudokuSolver.mapBoardType(game.type),
+        board_type: SudokuSolverImpl.mapBoardType(game.type),
       }) as number[][];
 
       return {

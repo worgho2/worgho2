@@ -1,7 +1,5 @@
 'use client';
 
-import { Button } from '@/app/_components/button';
-import { Field } from '@/app/_components/field';
 import {
   Box,
   Card,
@@ -20,25 +18,23 @@ import React from 'react';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
 import { useInView } from 'motion/react';
-import { SudokuSolverBoardType } from '@/ports/sudoku-solver';
+import { LoggerImpl, SudokuSolverBoardType, SudokuSolverGame, SudokuSolverImpl } from '@/services';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import {
+  Button,
+  Field,
   SelectContent,
   SelectItem,
   SelectRoot,
   SelectTrigger,
   SelectValueText,
-} from '@/app/_components/select';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  SolveSudokuGame,
-  SolveSudokuGameInput,
-  solveSudokuGameInputSchema,
-} from '@/ports/use-cases/solve-sudoku-game';
-import { ConsoleLogger } from '@/infrastructure/logger/console-logger';
-import { RustSudokuSolver } from '@/infrastructure/sudoku-solver/rust-sudoku-solver';
-import { toaster } from '@/app/_components/toaster';
-import { useColorModeValue } from '@/app/_components/color-mode';
+  toaster,
+  useColorModeValue,
+} from '@/components';
+
+const sudokuSolver = new SudokuSolverImpl();
 
 export interface SolverFormProps extends FlexProps {}
 
@@ -47,24 +43,25 @@ export const SolverForm: React.FC<SolverFormProps> = ({ ...flexProps }) => {
   const inView = useInView(flexRef, { once: true });
   const dataState = inView ? 'open' : 'closed';
 
-  const formMethods = useForm<SolveSudokuGameInput>({
+  const formMethods = useForm<SudokuSolverGame>({
     defaultValues: {
       board: undefined,
-      boardType: undefined,
+      type: '9_regular',
     },
-    resolver: zodResolver(solveSudokuGameInputSchema),
+    resolver: zodResolver(
+      z.object({
+        board: z.array(z.array(z.number())),
+        type: z.string(),
+      })
+    ),
   });
 
-  const logger = new ConsoleLogger();
-  const sudokuSolver = new RustSudokuSolver();
-  const solveSudokuGame = new SolveSudokuGame(logger, sudokuSolver);
-
-  const onSubmit: SubmitHandler<SolveSudokuGameInput> = async (data, event) => {
+  const onSubmit: SubmitHandler<SudokuSolverGame> = async (data, event) => {
     event?.preventDefault();
 
-    const output = await solveSudokuGame.execute({
+    const output = await sudokuSolver.solve({
       board: data.board,
-      boardType: data.boardType,
+      type: data.type,
     });
 
     if (output.error === 'INVALID_GAME') {
@@ -110,7 +107,7 @@ export const SolverForm: React.FC<SolverFormProps> = ({ ...flexProps }) => {
     formMethods.setValue('board', output.game.board);
   };
 
-  const boardTypeWatch = formMethods.watch('boardType');
+  const boardTypeWatch = formMethods.watch('type');
 
   const boardTypeSelectData = React.useMemo<BoardTypeSelectData | undefined>(
     () => boardTypeSelectDataCollection.find(boardTypeWatch) ?? undefined,
@@ -196,12 +193,12 @@ export const SolverForm: React.FC<SolverFormProps> = ({ ...flexProps }) => {
               <Field
                 label={'Board Type'}
                 required
-                invalid={formMethods.formState.errors.boardType !== undefined}
-                errorText={formMethods.formState.errors.boardType?.message}
+                invalid={formMethods.formState.errors.type !== undefined}
+                errorText={formMethods.formState.errors.type?.message}
               >
                 <Controller
                   control={formMethods.control}
-                  name='boardType'
+                  name='type'
                   render={({ field }) => (
                     <SelectRoot
                       multiple={false}

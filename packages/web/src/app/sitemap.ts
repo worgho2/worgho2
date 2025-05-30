@@ -1,8 +1,7 @@
 import dayjs from 'dayjs';
 import { MetadataRoute } from 'next';
 import utc from 'dayjs/plugin/utc';
-import { getAppUrl } from './_helpers/get-app-url';
-import { isProd } from './_helpers/is-prod';
+import { getAppUrl, isProd } from '@/helpers';
 
 dayjs.extend(utc);
 

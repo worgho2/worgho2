@@ -1,13 +1,5 @@
 'use client';
 
-import { Button } from '@/app/_components/button';
-import { Field } from '@/app/_components/field';
-import { ConsoleLogger } from '@/infrastructure/logger/console-logger';
-import {
-  CreateShortUrl,
-  CreateShortUrlInput,
-  createShortUrlInputSchema,
-} from '@/ports/use-cases/create-short-url';
 import {
   Card,
   Container,
@@ -23,17 +15,25 @@ import {
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { getAppUrl } from '@/app/_helpers/get-app-url';
 import NextLink from 'next/link';
-import { toaster } from '@/app/_components/toaster';
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
-import { getPublicEnv } from '@/app/_helpers/env';
-import { ShortUrlData } from '@/ports/short-url-api';
-import { Alert } from '@/app/_components/alert';
 import { LuLink } from 'react-icons/lu';
 import { useInView } from 'motion/react';
-import { ClipboardIconButton, ClipboardRoot } from '@/app/_components/clipboard';
-import { MicronautShortUrlApi } from '@/infrastructure/short-url-api/micronaut-short-url-api';
+import {
+  LoggerImpl,
+  ShortUrlData,
+  UrlShortenerApiCreateInput,
+  UrlShortenerApiImpl,
+} from '@/services';
+import { z } from 'zod';
+import { getAppUrl, getPublicEnv } from '@/helpers';
+import { Alert, Button, ClipboardIconButton, ClipboardRoot, Field, toaster } from '@/components';
+
+const logger = new LoggerImpl();
+const urlShortenerApi = new UrlShortenerApiImpl(
+  logger,
+  getPublicEnv('NEXT_PUBLIC_URL_SHORTENER_API_URL')
+);
 
 export interface CreateShortUrlFormProps extends FlexProps {}
 
@@ -43,26 +43,25 @@ export const CreateShortUrlForm: React.FC<CreateShortUrlFormProps> = ({ ...flexP
   const dataState = inView ? 'open' : 'closed';
 
   const turnstileRef = React.useRef<TurnstileInstance>();
-  const formMethods = useForm<CreateShortUrlInput>({
+  const formMethods = useForm<UrlShortenerApiCreateInput>({
     defaultValues: {
       originalUrl: '',
       slug: '',
     },
-    resolver: zodResolver(createShortUrlInputSchema),
+    resolver: zodResolver(
+      z.object({
+        originalUrl: z.string().url(),
+        slug: z.string().min(1),
+        captcha: z.string().min(1),
+      })
+    ),
   });
   const [createdUrls, setCreatedUrls] = React.useState<ShortUrlData[]>([]);
 
-  const logger = new ConsoleLogger();
-  const shortUrlApi = new MicronautShortUrlApi(
-    logger,
-    getPublicEnv('NEXT_PUBLIC_URL_SHORTENER_API_URL')
-  );
-  const createShortUrl = new CreateShortUrl(logger, shortUrlApi);
-
-  const onSubmit: SubmitHandler<CreateShortUrlInput> = async (data, event) => {
+  const onSubmit: SubmitHandler<UrlShortenerApiCreateInput> = async (data, event) => {
     event?.preventDefault();
 
-    const output = await createShortUrl.execute({
+    const output = await urlShortenerApi.create({
       originalUrl: data.originalUrl,
       slug: data.slug,
       captcha: data.captcha,

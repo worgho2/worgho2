@@ -1,7 +1,5 @@
-import { Logger } from '@/ports/logger';
-import { NotionGateway, NotionGatewayPage } from '@/ports/notion-gateway';
-import { NotionAPI } from 'notion-client';
 import { ExtendedRecordMap } from 'notion-types';
+import { NotionAPI } from 'notion-client';
 import {
   getAllPagesInSpace,
   getPageContentBlockIds,
@@ -9,8 +7,21 @@ import {
   parsePageId,
   getPageProperty,
 } from 'notion-utils';
+import { Logger } from './logger';
 
-export class XNotionGateway implements NotionGateway {
+export interface NotionApiPage {
+  id: string;
+  title?: string;
+  description?: string;
+  extendedRecordMap: ExtendedRecordMap;
+}
+
+export interface NotionApi {
+  getPage(pageId: string): Promise<NotionApiPage | undefined>;
+  listPages(rootPageId: string): Promise<Omit<NotionApiPage, 'extendedRecordMap'>[]>;
+}
+
+export class NotionApiImpl implements NotionApi {
   constructor(
     private readonly logger: Logger,
     private readonly revalidateAfter: number,
@@ -110,7 +121,7 @@ export class XNotionGateway implements NotionGateway {
     }
   };
 
-  getPage = async (rawPageId: string): Promise<NotionGatewayPage | undefined> => {
+  getPage = async (rawPageId: string): Promise<NotionApiPage | undefined> => {
     try {
       const pageUUID = parsePageId(rawPageId, { uuid: true }) ?? rawPageId;
       const pageId = parsePageId(rawPageId, { uuid: false }) ?? rawPageId;
@@ -156,9 +167,7 @@ export class XNotionGateway implements NotionGateway {
     }
   };
 
-  listPages = async (
-    rootPageId: string
-  ): Promise<Omit<NotionGatewayPage, 'extendedRecordMap'>[]> => {
+  listPages = async (rootPageId: string): Promise<Omit<NotionApiPage, 'extendedRecordMap'>[]> => {
     const pageMap = await getAllPagesInSpace(rootPageId, this.rootNotionSpaceId, (pageId) =>
       this.client.getPage(pageId, {
         kyOptions: {

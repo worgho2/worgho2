@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
-import { isProd } from './_helpers/is-prod';
-import { getAppUrl } from './_helpers/get-app-url';
+import { getAppUrl, isProd } from '@/helpers';
 
 export default function robots(): MetadataRoute.Robots {
   if (!isProd()) {

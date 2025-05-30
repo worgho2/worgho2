@@ -79,10 +79,10 @@ export const HeroSection: React.FC = () => {
                 as='span'
                 color={accentColor}
               >
-                Otávio Baziewicz
+                Otávio Baziewicz Filho
               </Text>
               <br />
-              <Text as='span'>Full-Stack Architect</Text>
+              <Text as='span'>Software Engineer</Text>
             </Heading>
 
             {/* Subtitle */}
@@ -91,16 +91,15 @@ export const HeroSection: React.FC = () => {
               color='fg.muted'
               maxW='600px'
             >
-              I craft{' '}
+              I build{' '}
               <Text
                 as='span'
                 color={accentColor}
                 fontWeight='semibold'
               >
-                exceptional digital experiences
+                high-quality software
               </Text>{' '}
-              using cutting-edge technologies. From Rust-powered WebAssembly to serverless
-              architectures, I turn complex problems into elegant solutions.
+              built to scale. From cluster-based systems to serverless architectures.
             </Text>
 
             {/* CTA Buttons */}
@@ -117,7 +116,7 @@ export const HeroSection: React.FC = () => {
                     _hover={{ transform: 'translateY(-2px)', shadow: 'lg' }}
                     transition='all 0.2s'
                   >
-                    View My Work <LuArrowRight />
+                    Projects Showcase <LuArrowRight />
                   </Button>
                 </NextLink>
               </Link>

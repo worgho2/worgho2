@@ -1,7 +1,7 @@
-import { PageContentContainer } from '@/app/_components/page-content-container';
-import { CreateShortUrlForm } from './_components/create-short-url-form';
+import { PageContentContainer } from '@/components';
+import { CreateShortUrlForm } from './create-short-url-form';
 import { Metadata } from 'next';
-import { baseMetadata } from '@/app/_helpers/seo';
+import { baseMetadata } from '@/helpers';
 
 export const metadata: Metadata = {
   title: 'Url Shortener',

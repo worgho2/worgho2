@@ -11,6 +11,8 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
     "jsx": "preserve",
     "incremental": true,
     "plugins": [
@@ -18,8 +20,13 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
+    "rootDir": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/services": ["./src/app/_services"],
+      "@/helpers": ["./src/app/_helpers"],
+      "@/components": ["./src/app/_components"],
+      "@/api/*": ["./src/api/*"]
     }
   },
   "include": [

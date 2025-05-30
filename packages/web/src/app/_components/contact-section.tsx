@@ -262,7 +262,7 @@ export const ContactSection: React.FC = () => {
                 >
                   <HStack gap={2}>
                     <LuMapPin />
-                    <Text fontSize='sm'>Remote / Prague, CZ</Text>
+                    <Text fontSize='sm'>Remote / Curitiba,Brazil</Text>
                   </HStack>
                   <HStack gap={2}>
                     <LuCalendar />
@@ -279,6 +279,7 @@ export const ContactSection: React.FC = () => {
                     colorPalette='blue'
                     _hover={{ transform: 'translateY(-2px)', shadow: 'lg' }}
                     transition='all 0.2s'
+                    px='20'
                   >
                     Start a Conversation <LuArrowRight />
                   </Button>

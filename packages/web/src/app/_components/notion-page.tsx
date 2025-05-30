@@ -8,7 +8,7 @@ import { ComponentOverrideFn, NotionComponents, NotionRenderer } from 'react-not
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 import dynamic from 'next/dynamic';
-import { getAppUrl } from '@/app/_helpers/get-app-url';
+import { getAppUrl } from '@/helpers';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import localizedFormat from 'dayjs/plugin/localizedFormat';

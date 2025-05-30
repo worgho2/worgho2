@@ -1,11 +1,8 @@
 import type { Metadata } from 'next';
 import React from 'react';
-import { baseMetadata } from './_helpers/seo';
 import { fonts } from './_styles/fonts';
-import { Provider } from './_components/provider';
-import { Navbar } from './_components/navbar';
-import { Footer } from './_components/footer';
-import { Toaster } from './_components/toaster';
+import { baseMetadata } from '@/helpers';
+import { Footer, Navbar, Provider, Toaster } from '@/components';
 
 export const metadata: Metadata = {
   ...baseMetadata,
