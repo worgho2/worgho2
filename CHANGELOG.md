@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/worgho2/worgho2/compare/v1.6.0...v1.7.0) (2025-05-30)
+
+
+### Features
+
+* add new home page ([6719f9d](https://github.com/worgho2/worgho2/commit/6719f9d8a47882693a0dd2e8e7b2e09294226966))
+
 ## [1.6.0](https://github.com/worgho2/worgho2/compare/v1.5.1...v1.6.0) (2025-03-24)
 
 
