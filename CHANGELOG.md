@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/worgho2/worgho2/compare/v1.7.0...v1.8.0) (2025-07-11)
+
+
+### Features
+
+* add support for GitHub Actions workflow formatting in VSCode settings ([30e410b](https://github.com/worgho2/worgho2/commit/30e410b853525500f156caa0c6f176eb882a28b6))
+
 ## [1.7.0](https://github.com/worgho2/worgho2/compare/v1.6.0...v1.7.0) (2025-05-30)
 
 
