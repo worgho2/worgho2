@@ -1,13 +1,15 @@
-// Renders dist/contributions.svg.
+// Renders dist/contributions.svg and the dist/index.html page that shows it.
 //   pnpm generate                 fetches the live calendar for LOGIN using GITHUB_TOKEN
 //   pnpm generate calendar.json   renders a saved GraphQL response instead (no token needed)
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname } from 'node:path';
+import { basename, dirname } from 'node:path';
 import { fetchCalendar, weeksOf } from './calendar.ts';
 import { renderGraph } from './graph.ts';
+import { indexHtml } from './index.ts';
 
 const LOGIN = 'worgho2';
 const OUT = 'dist/contributions.svg';
+const INDEX = 'dist/index.html';
 
 async function main(): Promise<void> {
   const inPath = process.argv[2];
@@ -18,8 +20,10 @@ async function main(): Promise<void> {
   const svg = renderGraph(weeks);
   mkdirSync(dirname(OUT), { recursive: true });
   writeFileSync(OUT, svg);
+  writeFileSync(INDEX, indexHtml(LOGIN, basename(OUT)));
   const summary = {
     out: OUT,
+    index: INDEX,
     source: inPath ?? `graphql:${LOGIN}`,
     weeks: weeks.length,
     activeDays: weeks.flatMap((w) => w.contributionDays).filter((d) => d.contributionCount > 0).length,
