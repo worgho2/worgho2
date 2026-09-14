@@ -1,2 +1,6 @@
-packages:
-  - 'packages/*'
+# Single-package repo; this file only carries pnpm settings (pnpm 10 moved them here from .npmrc).
+engineStrict: true
+
+# pnpm blocks postinstall scripts by default; lefthook needs its binary.
+onlyBuiltDependencies:
+  - lefthook

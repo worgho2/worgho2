@@ -1,0 +1,10 @@
+pre-commit:
+  jobs:
+    - name: format
+      run: pnpm biome format --write --no-errors-on-unmatched {staged_files}
+      stage_fixed: true
+
+commit-msg:
+  jobs:
+    - name: commitlint
+      run: pnpm commitlint --edit {1}

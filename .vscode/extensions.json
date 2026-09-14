@@ -1,8 +1,0 @@
-{
-  "recommendations": [
-    "oracle-labs-graalvm.graal-cloud-native-pack",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "github.vscode-github-actions"
-  ]
-}

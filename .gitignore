@@ -1,28 +1,18 @@
-# sst
-.sst
+# Dependencies
+node_modules/
 
-# node
-node_modules
+# Logs
+*.log
 
-# env
+# Environment
 .env
 .env.*
 !.env.example
 
-# testing
-coverage
-
-# next.js
-.next/
-out/
-build
-.open-next
-
-# misc
+# Editors / OS
 .DS_Store
-*.pem
-_dev
+.idea/
+.vscode/
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Local experiments
+_dev/
