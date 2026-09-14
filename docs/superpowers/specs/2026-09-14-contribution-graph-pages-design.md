@@ -9,7 +9,7 @@ The profile README shows an animated 3D graph of the last year of contributions.
 ## Decisions
 
 - **Where it runs:** a GitHub Actions workflow in this repo, on a daily cron.
-- **Where it is served:** GitHub Pages, deployed from the workflow. The site contains only `contributions.svg`, no index page.
+- **Where it is served:** GitHub Pages, deployed from the workflow. The site contains `contributions.svg` and a minimal `index.html` that shows it and links to the profile.
 - **Data source:** the GitHub GraphQL `contributionsCollection` calendar for `worgho2`, read with the built-in `GITHUB_TOKEN`. Public contributions only; the profile setting that shows private contributions is on, so the public view already matches.
 - **Keeping the cron alive:** GitHub disables scheduled workflows after 60 days without a push. On the first day of each month the workflow commits a touched file.
 - **No releases:** release-please is not used in this repo. Commitlint and the pre-commit format hook stay.
@@ -138,4 +138,4 @@ Every module has a Vitest file next to it: geometry constants and projection; SM
 
 ## Out of scope
 
-Private contributions, a custom domain, an index page, an STL pipeline, and any service that renders on request.
+Private contributions, a custom domain, an STL pipeline, and any service that renders on request.
