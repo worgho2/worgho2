@@ -53,7 +53,7 @@ new Generator()
 
 ### Adapters (`src/graph/adapters/`)
 
-- `contributions.ts`: `contributionsMatrix(weeks)` places counts by weekday and week, left-aligned, and rejects calendars longer than 53 weeks. `contributionsPalette` clamps height at 45 contributions (0.2 world units each) and uses the four GitHub green bands by count.
+- `contributions.ts`: `contributionsMatrix(weeks)` places counts by weekday and week, left-aligned, and calendars longer than 53 weeks keep the most recent 53. `contributionsPalette` clamps height at 45 contributions (0.2 world units each) and uses the four GitHub green bands by count.
 - `text.ts`: `textMatrix(text)` centres the 7-row pixel font on the plate; `textPalette` gives height 1 and the fixed text shade.
 - `transitions/grow.ts`: blocks rise column by column with an ease-out.
 - `transitions/wave.ts`: blocks rise column by column, overshoot by a bump, and settle.

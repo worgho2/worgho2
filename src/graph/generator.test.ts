@@ -62,6 +62,24 @@ describe('Generator', () => {
     }
   });
 
+  it('clamps the flatten hold to the end of the cycle when the erase is short', () => {
+    const vanishFast: EraseTransition = {
+      duration: 0.1,
+      plan: (cells, start) => new Map(cells.map((c) => [c, start])),
+    };
+    const svg = new Generator()
+      .write({ data: one(0, 0), palette, transition: pop })
+      .erase({ transition: vanishFast })
+      .build();
+    const lists = [...svg.matchAll(/keyTimes="([^"]+)"/g)].map((m) => m[1].split(';').map(Number));
+    expect(lists.length).toBeGreaterThan(0);
+    for (const ts of lists) {
+      expect(ts[0]).toBe(0);
+      expect(ts[ts.length - 1]).toBe(1);
+      for (let i = 1; i < ts.length; i++) expect(ts[i]).toBeGreaterThanOrEqual(ts[i - 1]);
+    }
+  });
+
   it('lets erase transitions share state and add scene markup once the period is known', () => {
     const pit: EraseTransition = {
       duration: 1,
@@ -117,5 +135,9 @@ describe('Generator', () => {
   it('rejects keyframes outside the transition duration', () => {
     const late: WriteTransition = { duration: 1, keyframes: () => [{ at: 2, height: 1, ease: LINEAR }] };
     expect(() => new Generator().write({ data: one(0, 0), palette, transition: late })).toThrow(/duration/);
+  });
+
+  it('rejects a negative delay', () => {
+    expect(() => new Generator().delay(-1)).toThrow(/non-negative/);
   });
 });

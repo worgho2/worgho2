@@ -1,4 +1,4 @@
-import { cellFaces, HEIGHT, MAX_HEIGHT, painter, plateFaces, pts, VIEW_BOX, WIDTH } from './geometry.ts';
+import { cellFaces, HEIGHT, MAX_HEIGHT, PLATE_CLIP_ID, painter, plateFaces, pts, VIEW_BOX, WIDTH } from './geometry.ts';
 import {
   type Cell,
   COLS,
@@ -14,8 +14,6 @@ import {
 } from './ports.ts';
 import { LINEAR, smil } from './smil.ts';
 
-/** Clip path id of the plate top, available to every transition. */
-export const PLATE_CLIP_ID = 'plate';
 const PLATE_SHADE = ['#ebedf0', '#c9ccd1', '#d8dbe0'];
 const FLATTEN = 0.5; // s a vanished block takes to return to zero height, while hidden
 

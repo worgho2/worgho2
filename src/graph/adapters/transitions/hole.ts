@@ -1,5 +1,17 @@
-import { PLATE_CLIP_ID } from '../../generator.ts';
-import { BASE, CELL, cellFaces, f2, GRID_H, GRID_W, PITCH, painter, proj, pts, S } from '../../geometry.ts';
+import {
+  BASE,
+  CELL,
+  cellFaces,
+  f2,
+  GRID_H,
+  GRID_W,
+  PITCH,
+  PLATE_CLIP_ID,
+  painter,
+  proj,
+  pts,
+  S,
+} from '../../geometry.ts';
 import type { Cell, EraseTransition, RenderContext, Scene } from '../../ports.ts';
 import { EASE_IN, LINEAR } from '../../smil.ts';
 
@@ -51,7 +63,7 @@ const layerOf = (scene: Scene): Layer =>
             ),
           )
           .join('');
-        return `<ellipse cx="${f2(first.cx)}" cy="${f2(first.cy)}" rx="${f2(first.rx)}" ry="${f2(first.ry)}" ${extra}>${anims}</ellipse>`;
+        return `<ellipse cx="${f2(first.cx)}" cy="${f2(first.cy)}" rx="${f2(first.rx)}" ry="${f2(first.ry)}"${extra ? ` ${extra}` : ''}>${anims}</ellipse>`;
       };
       return {
         defs:
@@ -65,27 +77,24 @@ const layerOf = (scene: Scene): Layer =>
 
 /** Copies of the blocks that drop through the pit, visible only inside the hole clip. */
 const fallingCopies = (ctx: RenderContext, cells: Cell[], fallAt: Map<Cell, number>, fall: number): string => {
-  const copies = [...cells]
-    .filter((c) => fallAt.has(c))
-    .sort(painter)
-    .map((c) => {
-      const t0 = fallAt.get(c)!;
-      const t1 = t0 + fall;
-      const drop = c.height * S + MAX_RY + 8; // px: block height plus hole half-height, so it fully exits the hole
-      const body = cellFaces(c.col, c.row, c.height)
-        .map((f, i) => `<polygon points="${pts(f)}" fill="${c.faces[i]}"/>`)
-        .join('');
-      const show = ctx.step('visibility', ['hidden', 'visible', 'hidden'], [t0, t1]);
-      const move = ctx.tween(
-        'transform',
-        ['0 0', `0 ${f2(drop)}`],
-        [t0, t1],
-        [EASE_IN],
-        'animateTransform',
-        'type="translate" ',
-      );
-      return `<g visibility="hidden">${show}${move}${body}</g>`;
-    });
+  const copies = [...cells].sort(painter).map((c) => {
+    const t0 = fallAt.get(c)!;
+    const t1 = t0 + fall;
+    const drop = c.height * S + MAX_RY + 8; // px: block height plus hole half-height, so it fully exits the hole
+    const body = cellFaces(c.col, c.row, c.height)
+      .map((f, i) => `<polygon points="${pts(f)}" fill="${c.faces[i]}"/>`)
+      .join('');
+    const show = ctx.step('visibility', ['hidden', 'visible', 'hidden'], [t0, t1]);
+    const move = ctx.tween(
+      'transform',
+      ['0 0', `0 ${f2(drop)}`],
+      [t0, t1],
+      [EASE_IN],
+      'animateTransform',
+      'type="translate" ',
+    );
+    return `<g visibility="hidden">${show}${move}${body}</g>`;
+  });
   return `<g clip-path="url(#${HOLE_CLIP_ID})">${copies.join('')}</g>`;
 };
 

@@ -57,4 +57,8 @@ describe('weeksOf', () => {
     expect(() => weeksOf({ data: { user: null } })).toThrow(/no weeks/);
     expect(() => weeksOf(calendar([]))).toThrow(/no weeks/);
   });
+
+  it('throws when a week is missing contributionDays', () => {
+    expect(() => weeksOf(calendar([{ nope: true }]))).toThrow(/contributionDays/);
+  });
 });

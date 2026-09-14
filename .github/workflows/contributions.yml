@@ -69,7 +69,7 @@ jobs:
 
       # GitHub disables scheduled workflows after 60 days without a push. Once a month, push one.
       - name: Keep the schedule alive
-        if: github.event_name == 'schedule'
+        if: ${{ !cancelled() && github.event_name == 'schedule' }}
         run: |
           if [ "$(date -u +%d)" != "01" ]; then
             echo "Not the first day of the month; nothing to do."

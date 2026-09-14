@@ -55,6 +55,9 @@ export const cellFaces = (col: number, row: number, height: number): [Quad, Quad
 
 export const plateFaces = faces(-MARGIN, -MARGIN, 0, GRID_W + MARGIN, GRID_H + MARGIN, BASE);
 
+/** Clip path id of the plate top, available to every transition. */
+export const PLATE_CLIP_ID = 'plate';
+
 /** Sort order from the back of the plate to the front, so nearer blocks are drawn last. */
 export const painter = (a: { col: number; row: number }, b: { col: number; row: number }): number =>
   a.col + a.row - (b.col + b.row);

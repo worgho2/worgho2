@@ -57,5 +57,7 @@ export function weeksOf(body: unknown): CalendarWeek[] {
     body as { data?: { user?: { contributionsCollection?: { contributionCalendar?: { weeks?: unknown } } } } }
   )?.data?.user?.contributionsCollection?.contributionCalendar?.weeks;
   if (!Array.isArray(weeks) || weeks.length === 0) throw new Error('calendar has no weeks');
+  if (weeks.some((w) => !Array.isArray((w as { contributionDays?: unknown })?.contributionDays)))
+    throw new Error('calendar week is missing contributionDays');
   return weeks as CalendarWeek[];
 }

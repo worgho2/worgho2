@@ -21,9 +21,14 @@ describe('contributionsMatrix', () => {
     expect(m.flat().filter((v) => v === 1)).toHaveLength(7 * 53);
   });
 
-  it('rejects no weeks, more than 53 weeks, or a bad weekday', () => {
+  it('keeps the most recent 53 weeks of a longer calendar, and rejects no weeks or a bad weekday', () => {
+    const weeks = Array.from({ length: 54 }, () => week([1, 1, 1, 1, 1, 1, 1]));
+    weeks[0] = week([9, 9, 9, 9, 9, 9, 9]);
+    weeks[53] = week([7, 7, 7, 7, 7, 7, 7]);
+    const m = contributionsMatrix(weeks);
+    expect(m.flat().filter((v) => v === 9)).toHaveLength(0);
+    expect(m[0][52]).toBe(7);
     expect(() => contributionsMatrix([])).toThrow(/weeks/);
-    expect(() => contributionsMatrix(Array.from({ length: 54 }, () => week([1])))).toThrow(/weeks/);
     expect(() => contributionsMatrix([week([1], 7)])).toThrow(/weekday/);
   });
 });

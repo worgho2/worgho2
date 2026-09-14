@@ -9,11 +9,11 @@ export type CalendarWeek = {
 export const CAP = 45;
 const HEIGHT_UNIT = 0.2;
 
-/** Counts by weekday (row, Sunday at the back) and week (column, oldest first, left-aligned). */
+/** Counts by weekday (row, Sunday at the back) and week (column, oldest first, left-aligned). Calendars longer than `COLS` weeks keep only the most recent `COLS`. */
 export const contributionsMatrix = (weeks: CalendarWeek[]): Matrix => {
-  if (weeks.length === 0 || weeks.length > COLS) throw new Error(`expected 1 to ${COLS} weeks, got ${weeks.length}`);
+  if (weeks.length === 0) throw new Error(`expected at least one week of contributions, got ${weeks.length} weeks`);
   const m = emptyMatrix();
-  weeks.forEach((week, col) => {
+  weeks.slice(-COLS).forEach((week, col) => {
     for (const day of week.contributionDays) {
       if (!(day.weekday >= 0 && day.weekday < ROWS))
         throw new Error(`weekday ${day.weekday} is outside 0..${ROWS - 1}`);
