@@ -1,7 +1,8 @@
 // Renders dist/contributions.svg and the dist/index.html page that shows it.
 //   pnpm generate                 fetches the live calendar for GITHUB_USERNAME using GITHUB_TOKEN
 //   pnpm generate calendar.json   renders a saved GraphQL response instead (no token needed)
-// GITHUB_USERNAME defaults to worgho2 and GREETING_TEXT to 'welcome :)'.
+// GITHUB_USERNAME defaults to worgho2, GREETING_TEXT to 'welcome :)' and GITHUB_REPOSITORY (set by
+// Actions) to GITHUB_USERNAME/GITHUB_USERNAME; the page links to that repository's TEMPLATE.md.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { basename, dirname } from 'node:path';
 import { hole } from './erase-transitions/hole/hole.ts';
@@ -72,6 +73,7 @@ async function main(): Promise<void> {
   const inPath = process.argv[2];
   const username = process.env.GITHUB_USERNAME || 'worgho2';
   const greeting = process.env.GREETING_TEXT || 'welcome :)';
+  const repository = process.env.GITHUB_REPOSITORY || `${username}/${username}`;
 
   const calendar: GithubCalendarSource = inPath
     ? githubCalendarFromFile(inPath)
@@ -82,13 +84,14 @@ async function main(): Promise<void> {
 
   mkdirSync(dirname(OUT), { recursive: true });
   writeFileSync(OUT, svg);
-  writeFileSync(INDEX, indexPage(username, basename(OUT)));
+  writeFileSync(INDEX, indexPage({ username, repository, svgPath: basename(OUT) }));
 
   const summary = {
     out: OUT,
     index: INDEX,
     source: inPath ?? `graphql:${username}`,
     username,
+    repository,
     greeting,
     weeks: weeks.length,
     activeDays: weeks.flatMap((w) => w.contributionDays).filter((d) => d.contributionCount > 0).length,

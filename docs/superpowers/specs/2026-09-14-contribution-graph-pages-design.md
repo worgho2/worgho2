@@ -89,7 +89,7 @@ src/writable/text/text.ts                                   text -> plate, text 
 src/write-transitions/grow/grow.ts
 src/write-transitions/wave/wave.ts
 src/erase-transitions/hole/hole.ts
-src/index-page.ts                                           indexPage(username, svgPath): the Pages root page
+src/index-page.ts                                           indexPage({ username, repository, svgPath }): the Pages root page
 src/index.ts                                                contributionsAnimation({ weeks, greeting }) and the CLI
 src/**/*.test.ts                                            Vitest, next to the unit under test
 TEMPLATE.md                                                 how to use the repository as a template
@@ -103,7 +103,7 @@ tsconfig.json
 
 ## CLI
 
-`pnpm generate` runs `src/index.ts`, the composition root. It reads `GITHUB_USERNAME` (default `worgho2`) and `GREETING_TEXT` (default `welcome :)`), picks a calendar source and injects it into the writable. Two modes:
+`pnpm generate` runs `src/index.ts`, the composition root. It reads `GITHUB_USERNAME` (default `worgho2`), `GREETING_TEXT` (default `welcome :)`) and `GITHUB_REPOSITORY` (set by Actions; default `username/username`, used by the index page to link to `TEMPLATE.md`), picks a calendar source and injects it into the writable. Two modes:
 
 - `pnpm generate` (no arguments): `githubCalendarFromApi`, querying GraphQL for `GITHUB_USERNAME` with `GITHUB_TOKEN`. Fails with a non-zero exit on a missing token, an HTTP error, a GraphQL `errors` array, or a calendar with no weeks.
 - `pnpm generate path/to/calendar.json`: `githubCalendarFromFile`, rendering a saved GraphQL response for local iteration without a token. This is the shape already in `_dev/contributions-3d/contributions.json`. Fails on an unreadable file, invalid JSON, or a body without weeks.

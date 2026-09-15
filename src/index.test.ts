@@ -56,7 +56,11 @@ describe('cli', () => {
     const calendarPath = join(dir, 'calendar.json');
     writeFileSync(calendarPath, JSON.stringify(body));
 
-    const { cwd, status, stdout, stderr } = run([calendarPath], { GITHUB_USERNAME: 'someone', GREETING_TEXT: 'hi' });
+    const { cwd, status, stdout, stderr } = run([calendarPath], {
+      GITHUB_USERNAME: 'someone',
+      GITHUB_REPOSITORY: 'someone/graph',
+      GREETING_TEXT: 'hi',
+    });
 
     expect(stderr).not.toMatch(/failed/);
     expect(status).toBe(0);
@@ -67,7 +71,9 @@ describe('cli', () => {
       weeks: 53,
     });
     expect(readFileSync(join(cwd, 'dist/contributions.svg'), 'utf8')).toContain('<svg ');
-    expect(readFileSync(join(cwd, 'dist/index.html'), 'utf8')).toContain('<title>someone</title>');
+    const page = readFileSync(join(cwd, 'dist/index.html'), 'utf8');
+    expect(page).toContain('<title>someone</title>');
+    expect(page).toContain('href="https://github.com/someone/graph/blob/main/TEMPLATE.md"');
   });
 
   it('fails without a token when no calendar file is given', () => {

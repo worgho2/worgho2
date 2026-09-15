@@ -1,9 +1,28 @@
 import { HEIGHT, WIDTH } from './plate-animation-builder/geometry.ts';
 
 /**
- * The page served at the Pages root: the graph, sized like the README, linking back to the profile.
+ * What the Pages root page needs to know.
  */
-export const indexPage = (username: string, svgPath: string): string => `<!doctype html>
+export type IndexPage = {
+  /**
+   * The GitHub login the graph belongs to; the page links to the profile.
+   */
+  username: string;
+  /**
+   * The `owner/name` of the repository that renders the graph; the page links to its TEMPLATE.md.
+   */
+  repository: string;
+  /**
+   * Path of the SVG relative to the page.
+   */
+  svgPath: string;
+};
+
+/**
+ * The page served at the Pages root: the graph, sized like the README, linking back to the profile
+ * and to the instructions for reusing the repository as a template.
+ */
+export const indexPage = ({ username, repository, svgPath }: IndexPage): string => `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -22,6 +41,7 @@ export const indexPage = (username: string, svgPath: string): string => `<!docty
 <main>
 <a href="https://github.com/${username}"><img src="${svgPath}" alt="3D contribution graph of ${username}" width="${WIDTH}" height="${HEIGHT}"></a>
 <p>The last year of <a href="https://github.com/${username}">${username}</a>'s GitHub contributions, regenerated daily.</p>
+<p>Want one for your profile? Follow the <a href="https://github.com/${repository}/blob/main/TEMPLATE.md">instructions on how to use this repository as a template</a>.</p>
 </main>
 </body>
 </html>
