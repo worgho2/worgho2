@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { LINEAR, smil } from './smil.ts';
+import { LINEAR } from './constants.ts';
+import { smil } from './smil.ts';
 
 describe('smil', () => {
   const ctx = smil(10);

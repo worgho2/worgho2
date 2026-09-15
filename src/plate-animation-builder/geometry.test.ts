@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { cellFaces, HEIGHT, MAX_HEIGHT, painter, plateFaces, proj, pts, VIEW_BOX, WIDTH } from './geometry.ts';
+import { MAX_HEIGHT } from './constants.ts';
+import { blockFaces, HEIGHT, painter, plateFaces, proj, pts, VIEW_BOX, WIDTH } from './geometry.ts';
 
 describe('geometry', () => {
   it('sizes the canvas for a 53-week plate and the tallest block', () => {
@@ -18,7 +19,7 @@ describe('geometry', () => {
 
   it('keeps the tallest block inside the canvas', () => {
     const minY = Number(VIEW_BOX.split(' ')[1]);
-    for (const [, y] of cellFaces(0, 0, MAX_HEIGHT)[0].map(proj)) expect(y).toBeGreaterThanOrEqual(minY);
+    for (const [, y] of blockFaces(0, 0, MAX_HEIGHT)[0].map(proj)) expect(y).toBeGreaterThanOrEqual(minY);
   });
 
   it('has a four-point plate top', () => {

@@ -1,28 +1,29 @@
 import { describe, expect, it } from 'vitest';
-import { Generator } from './generator.ts';
+import { LINEAR } from './constants.ts';
 import { HEIGHT, VIEW_BOX, WIDTH } from './geometry.ts';
-import { type EraseTransition, emptyMatrix, type Palette, type WriteTransition } from './ports.ts';
-import { LINEAR } from './smil.ts';
+import { emptyPlate } from './helpers.ts';
+import type { EraseTransition, Palette, WriteTransition } from './model.ts';
+import { PlateAnimationBuilder } from './plate-animation-builder.ts';
 
 const one = (col: number, row: number, value = 1) => {
-  const m = emptyMatrix();
-  m[row][col] = value;
-  return m;
+  const plate = emptyPlate();
+  plate[row][col] = value;
+  return plate;
 };
 const palette: Palette = (value) => ({ height: value, faces: ['#a', '#b', '#c'] });
 const pop: WriteTransition = {
   duration: 1,
-  keyframes: (cell) => [
+  keyframes: (block) => [
     { at: 0, height: 0, ease: LINEAR },
-    { at: 1, height: cell.height, ease: LINEAR },
+    { at: 1, height: block.height, ease: LINEAR },
   ],
 };
-const vanish: EraseTransition = { duration: 1, plan: (cells, start) => new Map(cells.map((c) => [c, start])) };
+const vanish: EraseTransition = { duration: 1, plan: (blocks, start) => new Map(blocks.map((b) => [b, start])) };
 const never: EraseTransition = { duration: 1, plan: () => new Map() };
 
-describe('Generator', () => {
+describe('PlateAnimationBuilder', () => {
   it('builds an SVG on the constant canvas', () => {
-    const svg = new Generator()
+    const svg = new PlateAnimationBuilder()
       .write({ data: one(3, 2), palette, transition: pop })
       .erase({ transition: vanish })
       .build();
@@ -32,9 +33,9 @@ describe('Generator', () => {
   });
 
   it('shows a block from its first keyframe until it is erased', () => {
-    const svg = new Generator()
+    const svg = new PlateAnimationBuilder()
       .write({ data: one(0, 0, 2), palette, transition: pop })
-      .delay(1)
+      .delay({ duration: 1 })
       .erase({ transition: vanish })
       .build();
     // period = 1 (write) + 1 (delay) + 1 (erase); visible from 0 s, erased at 2 s
@@ -46,12 +47,28 @@ describe('Generator', () => {
     expect(svg).toContain('keyTimes="0;0.00000;0.33333;0.66667;0.83333;1"');
   });
 
-  it('keeps every keyTime inside the cycle and ordered', () => {
-    const svg = new Generator()
-      .write({ data: one(52, 6), palette, transition: pop })
-      .delay(2)
+  it('draws the standing blocks back to front', () => {
+    const plate = emptyPlate();
+    plate[0][5] = 1;
+    plate[0][0] = 1;
+    plate[1][1] = 1;
+    const svg = new PlateAnimationBuilder()
+      .write({ data: plate, palette, transition: pop })
       .erase({ transition: vanish })
-      .delay(0.25)
+      .build();
+    // the first polygon of each block group is its resting top face; back corner (0,0) first, (5,0) last
+    const tops = [...svg.matchAll(/<g opacity="0">.*?<polygon points="([^"]+)"/g)].map((m) => m[1]);
+    expect(tops).toHaveLength(3);
+    expect(tops[0]).toMatch(/^0\.00,-12\.00 /);
+    expect(tops[2]).toMatch(/^64\.95,25\.50 /);
+  });
+
+  it('keeps every keyTime inside the cycle and ordered', () => {
+    const svg = new PlateAnimationBuilder()
+      .write({ data: one(52, 6), palette, transition: pop })
+      .delay({ duration: 2 })
+      .erase({ transition: vanish })
+      .delay({ duration: 0.25 })
       .build();
     const lists = [...svg.matchAll(/keyTimes="([^"]+)"/g)].map((m) => m[1].split(';').map(Number));
     expect(lists.length).toBeGreaterThan(0);
@@ -65,9 +82,9 @@ describe('Generator', () => {
   it('clamps the flatten hold to the end of the cycle when the erase is short', () => {
     const vanishFast: EraseTransition = {
       duration: 0.1,
-      plan: (cells, start) => new Map(cells.map((c) => [c, start])),
+      plan: (blocks, start) => new Map(blocks.map((b) => [b, start])),
     };
-    const svg = new Generator()
+    const svg = new PlateAnimationBuilder()
       .write({ data: one(0, 0), palette, transition: pop })
       .erase({ transition: vanishFast })
       .build();
@@ -83,14 +100,14 @@ describe('Generator', () => {
   it('lets erase transitions share state and add scene markup once the period is known', () => {
     const pit: EraseTransition = {
       duration: 1,
-      plan: (cells, start, scene) => {
+      plan: (blocks, start, scene) => {
         scene.shared('pit', () =>
           scene.render((ctx) => ({ defs: `<g id="pit-defs" data-period="${ctx.period}"/>`, under: '<g id="pit"/>' })),
         );
-        return new Map(cells.map((c) => [c, start]));
+        return new Map(blocks.map((b) => [b, start]));
       },
     };
-    const svg = new Generator()
+    const svg = new PlateAnimationBuilder()
       .write({ data: one(1, 1), palette, transition: pop })
       .erase({ transition: pit })
       .write({ data: one(2, 2), palette, transition: pop })
@@ -103,41 +120,61 @@ describe('Generator', () => {
   });
 
   it('rejects a write on a non-empty plate', () => {
-    const g = new Generator().write({ data: one(0, 0), palette, transition: pop });
-    expect(() => g.write({ data: one(1, 1), palette, transition: pop })).toThrow(/not empty/);
+    const b = new PlateAnimationBuilder().write({ data: one(0, 0), palette, transition: pop });
+    expect(() => b.write({ data: one(1, 1), palette, transition: pop })).toThrow(/not empty/);
   });
 
   it('rejects an erase on an empty plate', () => {
-    expect(() => new Generator().erase({ transition: vanish })).toThrow(/empty/);
+    expect(() => new PlateAnimationBuilder().erase({ transition: vanish })).toThrow(/empty/);
   });
 
   it('rejects a cycle that ends with blocks standing', () => {
-    expect(() => new Generator().write({ data: one(0, 0), palette, transition: pop }).build()).toThrow(
+    expect(() => new PlateAnimationBuilder().write({ data: one(0, 0), palette, transition: pop }).build()).toThrow(
       /not empty at the end/,
     );
   });
 
   it('rejects an empty cycle', () => {
-    expect(() => new Generator().build()).toThrow(/nothing/);
+    expect(() => new PlateAnimationBuilder().build()).toThrow(/nothing/);
   });
 
   it('rejects blocks the erase never reaches', () => {
-    const g = new Generator().write({ data: one(0, 0), palette, transition: pop });
-    expect(() => g.erase({ transition: never })).toThrow(/never reached/);
+    const b = new PlateAnimationBuilder().write({ data: one(0, 0), palette, transition: pop });
+    expect(() => b.erase({ transition: never })).toThrow(/never reached/);
   });
 
-  it('rejects a matrix of the wrong size, an empty matrix, or blocks taller than the canvas', () => {
-    expect(() => new Generator().write({ data: [[1]], palette, transition: pop })).toThrow(/7x53/);
-    expect(() => new Generator().write({ data: emptyMatrix(), palette, transition: pop })).toThrow(/no blocks/);
-    expect(() => new Generator().write({ data: one(0, 0, 10), palette, transition: pop })).toThrow(/height/);
+  it('rejects a plate of the wrong size, an empty plate, or blocks taller than the canvas', () => {
+    expect(() => new PlateAnimationBuilder().write({ data: [[1]], palette, transition: pop })).toThrow(/7x53/);
+    expect(() => new PlateAnimationBuilder().write({ data: emptyPlate(), palette, transition: pop })).toThrow(
+      /no blocks/,
+    );
+    expect(() => new PlateAnimationBuilder().write({ data: one(0, 0, 10), palette, transition: pop })).toThrow(
+      /height/,
+    );
   });
 
-  it('rejects keyframes outside the transition duration', () => {
+  it('rejects keyframes outside the transition duration, unordered, or taller than the canvas', () => {
     const late: WriteTransition = { duration: 1, keyframes: () => [{ at: 2, height: 1, ease: LINEAR }] };
-    expect(() => new Generator().write({ data: one(0, 0), palette, transition: late })).toThrow(/duration/);
+    expect(() => new PlateAnimationBuilder().write({ data: one(0, 0), palette, transition: late })).toThrow(/duration/);
+    const backwards: WriteTransition = {
+      duration: 1,
+      keyframes: () => [
+        { at: 1, height: 1, ease: LINEAR },
+        { at: 0, height: 0, ease: LINEAR },
+      ],
+    };
+    expect(() => new PlateAnimationBuilder().write({ data: one(0, 0), palette, transition: backwards })).toThrow(
+      /ordered/,
+    );
+    const tall: WriteTransition = { duration: 1, keyframes: () => [{ at: 0, height: 10, ease: LINEAR }] };
+    expect(() => new PlateAnimationBuilder().write({ data: one(0, 0), palette, transition: tall })).toThrow(/height/);
+    const none: WriteTransition = { duration: 1, keyframes: () => [] };
+    expect(() => new PlateAnimationBuilder().write({ data: one(0, 0), palette, transition: none })).toThrow(
+      /no keyframes/,
+    );
   });
 
   it('rejects a negative delay', () => {
-    expect(() => new Generator().delay(-1)).toThrow(/non-negative/);
+    expect(() => new PlateAnimationBuilder().delay({ duration: -1 })).toThrow(/non-negative/);
   });
 });
