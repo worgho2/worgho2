@@ -50,10 +50,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # The username is the repository owner, so a template copy renders its own graph without edits.
+      # GREETING_TEXT is an optional repository variable (Settings > Secrets and variables > Actions).
       - name: Generate the SVG
         run: pnpm generate
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_USERNAME: ${{ github.repository_owner }}
+          GREETING_TEXT: ${{ vars.GREETING_TEXT }}
 
       - name: Configure Pages
         uses: actions/configure-pages@v6
